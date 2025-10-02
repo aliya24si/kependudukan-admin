@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PenerimaBantuanController;
 
 //Route::get('/', function () {
@@ -11,3 +12,5 @@ Route::get('/penerima/create', [PenerimaBantuanController::class, 'create'])->na
 Route::post('/penerima/store', [PenerimaBantuanController::class, 'store'])->name('penerima.store');   // Simpan ke session
 Route::get('/penerima', [PenerimaBantuanController::class, 'index'])->name('penerima.index');          // Tampilkan data
 
+Route::get('/auth', [AuthController::class, 'index']);
+Route::post('/auth/login', [AuthController::class, 'login']);
