@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\WargaController;
+use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PenerimaBantuanController;
 
@@ -17,10 +19,30 @@ Route::get('/auth', [AuthController::class, 'index']);
 Route::post('/auth/login', [AuthController::class, 'login']);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+Route::get('/program', [ProgramController::class, 'index'])->name('event.index');
+Route::post('/program/store', [ProgramController::class, 'store'])->name('event.store');
+Route::get('/program/{id}/edit', [ProgramController::class, 'edit'])->name('event.edit');
+Route::put('/program/{id}', [ProgramController::class, 'update'])->name('event.update');
+Route::delete('/program/{id}', [ProgramController::class, 'destroy'])->name('event.destroy');
+
+
+Route::get('/warga', [WargaController::class, 'index'])->name('warga.index');
+Route::post('/warga', [WargaController::class, 'store'])->name('warga.store');
+Route::get('/warga/{id}/edit', [WargaController::class, 'edit'])->name('warga.edit');
+Route::put('/warga/{id}', [WargaController::class, 'update'])->name('warga.update');
+Route::delete('/warga/{id}', [WargaController::class, 'destroy'])->name('warga.destroy');
+
+Route::get('/warga', [WargaController::class, 'index'])->name('warga.index');
+Route::post('/warga', [WargaController::class, 'store'])->name('warga.store');
+
+Route::resource('warga', WargaController::class);
+Route::get('/feature', [WargaController::class, 'index'])->name('warga.index');
+
 Route::get('/about', [DashboardController::class, 'about'])->name('about');
 Route::get('/service', [DashboardController::class, 'service'])->name('service');
 Route::get('/donation', [DashboardController::class, 'donation'])->name('donation');
-Route::get('/event', [DashboardController::class, 'event'])->name('event');
+//Route::get('/event', [DashboardController::class, 'event'])->name('event');
 Route::get('/feature', [DashboardController::class, 'feature'])->name('feature');
 Route::get('/team', [DashboardController::class, 'team'])->name('team');
 Route::get('/testimonial', [DashboardController::class, 'testimonial'])->name('testimonial');

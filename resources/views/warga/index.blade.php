@@ -133,158 +133,167 @@
     </div>
     <!-- Navbar End -->
 
-
     <!-- Page Header Start -->
     <div class="container-fluid page-header py-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container text-center py-4">
-            <h1 class="display-3 animated slideInDown">Program</h1>
+            <h1 class="display-3 animated slideInDown">Data Warga</h1>
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb justify-content-center mb-0">
                     <li class="breadcrumb-item"><a href="#!">Home</a></li>
                     <li class="breadcrumb-item"><a href="#!">Pages</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Program</li>
+                    <li class="breadcrumb-item active" aria-current="page">Data Warga</li>
                 </ol>
             </nav>
         </div>
     </div>
     <!-- Page Header End -->
 
+    <!-- Features Start -->
+    <div class="container py-4">
 
-    <!-- Video Start -->
-    <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container">
-            <div class="row g-0">
-                <div class="col-lg-11">
-                    <div class="h-100 py-5 d-flex align-items-center">
-                        <button type="button" class="btn-play" data-bs-toggle="modal"
-                            data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-bs-target="#videoModal">
-                            <span></span>
-                        </button>
-                        <h3 class="ms-5 mb-0">Together, we can build a world where everyone has the chance to thrive.
-                        </h3>
-                    </div>
-                </div>
-                <div class="d-none d-lg-block col-lg-1">
-                    <div class="h-100 w-100 bg-secondary d-flex align-items-center justify-content-center">
-                        <span class="text-white" style="transform: rotate(-90deg);">Scroll Down</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Video End -->
+            <h2>Data Warga</h2>
 
+            {{-- Flash Message --}}
+            @if (session('info'))
+                <div class="alert alert-success">{{ session('info') }}</div>
+            @endif
 
-    <!-- Video Modal Start -->
-    <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content rounded-0">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Youtube Video</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- 16:9 aspect ratio -->
-                    <div class="ratio ratio-16x9">
-                        <iframe class="embed-responsive-item" src="" id="video" allowfullscreen
-                            allowscriptaccess="always" allow="autoplay"></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Video Modal End -->
-
-
-    <!-- Event Start -->
-    <div class="container-fluid py-5">
-        <div class="container">
-            <div class="text-center mx-auto wow fadeIn" data-wow-delay="0.1s" style="max-width: 500px;">
-                <p class="section-title bg-white text-center text-primary px-3">PROGRAM</p>
-                <h1 class="display-6 mb-4">BANTUAN SOSIAL PEMERINTAH</h1>
-            </div>
-
-            <!-- Form tambah data -->
-            <div class="card mb-4 shadow-sm">
-                <div class="card-header bg-primary text-white">Tambah Program</div>
+            {{-- Form Tambah --}}
+            <div class="card mb-4">
+                <div class="card-header">Tambah Data Warga</div>
                 <div class="card-body">
-                    <form action="{{ route('event.store') }}" method="POST">
+                    <form action="{{ route('warga.store') }}" method="POST">
                         @csrf
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label>Kode</label>
-                                <input type="text" name="kode" class="form-control" required>
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <label>No KTP</label>
+                                <input type="text" name="no_ktp" class="form-control"
+                                    value="{{ old('no_ktp') }}" required>
+                                @error('no_ktp')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
-                            <div class="col">
-                                <label>Nama Program</label>
-                                <input type="text" name="nama_program" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label>Tahun</label>
-                                <input type="number" name="tahun" class="form-control" required>
-                            </div>
-                            <div class="col">
-                                <label>Anggaran</label>
-                                <input type="number" name="anggaran" step="0.01" class="form-control" required>
+                            <div class="col-md-6">
+                                <label>Nama</label>
+                                <input type="text" name="nama" class="form-control"
+                                    value="{{ old('nama') }}" required>
+                                @error('nama')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
+
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <label>Jenis Kelamin</label>
+                                <select name="jenis_kelamin" class="form-control" required>
+                                    <option value="">-- Pilih --</option>
+                                    <option value="Laki-laki"
+                                        {{ old('jenis_kelamin') == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                                    <option value="Perempuan"
+                                        {{ old('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                                </select>
+                                @error('jenis_kelamin')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <label>Agama</label>
+                                <input type="text" name="agama" class="form-control"
+                                    value="{{ old('agama') }}" required>
+                                @error('agama')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <label>Pekerjaan</label>
+                                <input type="text" name="pekerjaan" class="form-control"
+                                    value="{{ old('pekerjaan') }}" required>
+                                @error('pekerjaan')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <label>Telepon</label>
+                                <input type="text" name="telp" class="form-control"
+                                    value="{{ old('telp') }}" required>
+                                @error('telp')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="mb-3">
-                            <label>Deskripsi</label>
-                            <textarea name="deskripsi" class="form-control"></textarea>
+                            <label>Email</label>
+                            <input type="email" name="email" class="form-control" value="{{ old('email') }}"
+                                required>
+                            @error('email')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
-                        <div class="mb-3">
-                            <label>Media (dokumen/gambar)</label>
-                            <input type="text" name="media" class="form-control">
-                        </div>
-                        <button type="submit" class="btn btn-success">Simpan</button>
+
+                        <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>
                 </div>
             </div>
 
-            <!-- Tabel daftar program -->
-            <div class="card shadow-sm">
-                <div class="card-header bg-secondary text-white">Data Program</div>
+            {{-- Tabel Data --}}
+            <div class="card">
+                <div class="card-header">Daftar Warga</div>
                 <div class="card-body">
-                    <table class="table table-bordered table-striped">
+                    <table class="table table-striped align-middle">
                         <thead>
                             <tr>
-                                <th>Kode</th>
-                                <th>Nama Program</th>
-                                <th>Tahun</th>
-                                <th>Anggaran</th>
-                                <th>Media</th>
+                                <th>No</th>
+                                <th>No KTP</th>
+                                <th>Nama</th>
+                                <th>Jenis Kelamin</th>
+                                <th>Agama</th>
+                                <th>Pekerjaan</th>
+                                <th>Telp</th>
+                                <th>Email</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($programs as $program)
+                            @forelse ($row as $item)
                                 <tr>
-                                    <td>{{ $program->kode }}</td>
-                                    <td>{{ $program->nama_program }}</td>
-                                    <td>{{ $program->tahun }}</td>
-                                    <td>{{ number_format($program->anggaran, 2) }}</td>
-                                    <td>{{ $program->media }}</td>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $item->no_ktp }}</td>
+                                    <td>{{ $item->nama }}</td>
+                                    <td>{{ $item->jenis_kelamin }}</td>
+                                    <td>{{ $item->agama }}</td>
+                                    <td>{{ $item->pekerjaan }}</td>
+                                    <td>{{ $item->telp }}</td>
+                                    <td>{{ $item->email }}</td>
                                     <td>
-                                        <a href="{{ route('event.edit', $program->program_id) }}"
-                                            class="btn btn-warning btn-sm">Edit</a>
-                                        <form action="{{ route('event.destroy', $program->program_id) }}"
-                                            method="POST" class="d-inline">
+                                        <a href="{{ route('warga.edit', $item->warga_id) }}"
+                                            class="btn btn-sm btn-warning">Edit</a>
+                                        <form action="{{ route('warga.destroy', $item->warga_id) }}" method="POST"
+                                            style="display:inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn btn-danger btn-sm"
-                                                onclick="return confirm('Yakin hapus?')">Hapus</button>
+                                            <button class="btn btn-sm btn-danger"
+                                                onclick="return confirm('Hapus data ini?')">Hapus</button>
                                         </form>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="9" class="text-center">Belum ada data warga.</td>
+                                </tr>
+                            @endforelse
+
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-        <!-- Event End -->
+        <!-- Features End -->
 
 
         <!-- Banner Start -->
@@ -293,17 +302,12 @@
                 <div class="banner-inner bg-light p-5 wow fadeIn" data-wow-delay="0.1s">
                     <div class="row justify-content-center">
                         <div class="col-lg-8 py-5 text-center">
-                            <h1 class="display-6 wow fadeIn" data-wow-delay="0.3s">Our Door Are Always
-                                Open to
-                                More People
+                            <h1 class="display-6 wow fadeIn" data-wow-delay="0.3s">Our Door Are Always Open to More
+                                People
                                 Who Want to Support Each Others!</h1>
-                            <p class="fs-5 mb-4 wow fadeIn" data-wow-delay="0.5s">Through your donations
-                                and
-                                volunteer
+                            <p class="fs-5 mb-4 wow fadeIn" data-wow-delay="0.5s">Through your donations and volunteer
                                 work,
-                                we spread kindness and support to children, families, and communities
-                                struggling to
-                                find
+                                we spread kindness and support to children, families, and communities struggling to find
                                 stability.</p>
                             <div class="d-flex justify-content-center wow fadeIn" data-wow-delay="0.7s">
                                 <a class="btn btn-primary py-3 px-4 me-3" href="#!">Donate Now</a>
@@ -322,8 +326,7 @@
                 <div class="row g-5 py-5">
                     <div class="col-lg-3 col-md-6">
                         <h4 class="text-light mb-4">Our Office</h4>
-                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York,
-                            USA</p>
+                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
                         <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
                         <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
                         <div class="d-flex pt-3">
@@ -381,15 +384,13 @@
                 <div class="copyright pt-5">
                     <div class="row">
                         <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                            &copy; <a class="fw-semi-bold" href="#!">Your Site Name</a>, All Right
-                            Reserved.
+                            &copy; <a class="fw-semi-bold" href="#!">Your Site Name</a>, All Right Reserved.
                         </div>
                         <div class="col-md-6 text-center text-md-end">
                             <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
                             <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
                             <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
-                            Designed By <a class="fw-semi-bold" href="https://htmlcodex.com">HTML
-                                Codex</a>.
+                            Designed By <a class="fw-semi-bold" href="https://htmlcodex.com">HTML Codex</a>.
                             Distributed
                             by
                             <a class="fw-semi-bold" href="https://themewagon.com">ThemeWagon</a>

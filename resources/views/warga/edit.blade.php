@@ -104,22 +104,18 @@
                     <div class="navbar-nav me-auto">
                         <a href="dashboard" class="nav-item nav-link active">Home</a>
                         <a href="about" class="nav-item nav-link">About</a>
-                        <a href="program" class="nav-item nav-link">Program</a>
-                        <a href="feature" class="nav-item nav-link">Data Warga</a>
-
-                        <!--
+                        <a href="service" class="nav-item nav-link">Service</a>
+                        <a href="donation" class="nav-item nav-link">Donation</a>
                         <div class="nav-item dropdown">
                             <a href="#!" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                             <div class="dropdown-menu bg-light m-0">
-                                <a href="service" class="dropdown-item">Service</a>
-                                <a href="donation" class="dropdown-item">Donation</a>
+                                <a href="event" class="dropdown-item">Program</a>
+                                <a href="feature" class="dropdown-item">Data Warga</a>
                                 <a href="team" class="dropdown-item">Our Team</a>
                                 <a href="testimonial" class="dropdown-item">Testimonial</a>
                                 <a href="404" class="dropdown-item">404 Page</a>
                             </div>
                         </div>
-                        -->
-
                         <a href="contact" class="nav-item nav-link">Contact</a>
                     </div>
                     <div class="d-none d-lg-flex ms-auto">
@@ -133,159 +129,84 @@
     </div>
     <!-- Navbar End -->
 
-
     <!-- Page Header Start -->
     <div class="container-fluid page-header py-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container text-center py-4">
-            <h1 class="display-3 animated slideInDown">Program</h1>
+            <h1 class="display-3 animated slideInDown">Data Warga</h1>
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb justify-content-center mb-0">
                     <li class="breadcrumb-item"><a href="#!">Home</a></li>
                     <li class="breadcrumb-item"><a href="#!">Pages</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Program</li>
+                    <li class="breadcrumb-item active" aria-current="page">Data Warga</li>
                 </ol>
             </nav>
         </div>
     </div>
     <!-- Page Header End -->
 
+    <!-- Features Start -->
+    <div class="container py-4">
 
-    <!-- Video Start -->
-    <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container">
-            <div class="row g-0">
-                <div class="col-lg-11">
-                    <div class="h-100 py-5 d-flex align-items-center">
-                        <button type="button" class="btn-play" data-bs-toggle="modal"
-                            data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-bs-target="#videoModal">
-                            <span></span>
-                        </button>
-                        <h3 class="ms-5 mb-0">Together, we can build a world where everyone has the chance to thrive.
-                        </h3>
+            <h2>Edit Data Warga</h2>
+
+            <form action="{{ route('warga.update', $warga->warga_id) }}" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="row mb-2">
+                    <div class="col-md-6">
+                        <label>No KTP</label>
+                        <input type="text" name="no_ktp" class="form-control"
+                            value="{{ old('no_ktp', $warga->no_ktp) }}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Nama</label>
+                        <input type="text" name="nama" class="form-control"
+                            value="{{ old('nama', $warga->nama) }}" required>
                     </div>
                 </div>
-                <div class="d-none d-lg-block col-lg-1">
-                    <div class="h-100 w-100 bg-secondary d-flex align-items-center justify-content-center">
-                        <span class="text-white" style="transform: rotate(-90deg);">Scroll Down</span>
+
+                <div class="row mb-2">
+                    <div class="col-md-6">
+                        <label>Jenis Kelamin</label>
+                        <select name="jenis_kelamin" class="form-control" required>
+                            <option value="Laki-laki" {{ $warga->jenis_kelamin == 'Laki-laki' ? 'selected' : '' }}>
+                                Laki-laki</option>
+                            <option value="Perempuan" {{ $warga->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>
+                                Perempuan</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Agama</label>
+                        <input type="text" name="agama" class="form-control"
+                            value="{{ old('agama', $warga->agama) }}" required>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <!-- Video End -->
 
-
-    <!-- Video Modal Start -->
-    <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content rounded-0">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Youtube Video</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- 16:9 aspect ratio -->
-                    <div class="ratio ratio-16x9">
-                        <iframe class="embed-responsive-item" src="" id="video" allowfullscreen
-                            allowscriptaccess="always" allow="autoplay"></iframe>
+                <div class="row mb-2">
+                    <div class="col-md-6">
+                        <label>Pekerjaan</label>
+                        <input type="text" name="pekerjaan" class="form-control"
+                            value="{{ old('pekerjaan', $warga->pekerjaan) }}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Telp</label>
+                        <input type="text" name="telp" class="form-control"
+                            value="{{ old('telp', $warga->telp) }}" required>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <!-- Video Modal End -->
 
-
-    <!-- Event Start -->
-    <div class="container-fluid py-5">
-        <div class="container">
-            <div class="text-center mx-auto wow fadeIn" data-wow-delay="0.1s" style="max-width: 500px;">
-                <p class="section-title bg-white text-center text-primary px-3">PROGRAM</p>
-                <h1 class="display-6 mb-4">BANTUAN SOSIAL PEMERINTAH</h1>
-            </div>
-
-            <!-- Form tambah data -->
-            <div class="card mb-4 shadow-sm">
-                <div class="card-header bg-primary text-white">Tambah Program</div>
-                <div class="card-body">
-                    <form action="{{ route('event.store') }}" method="POST">
-                        @csrf
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label>Kode</label>
-                                <input type="text" name="kode" class="form-control" required>
-                            </div>
-                            <div class="col">
-                                <label>Nama Program</label>
-                                <input type="text" name="nama_program" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label>Tahun</label>
-                                <input type="number" name="tahun" class="form-control" required>
-                            </div>
-                            <div class="col">
-                                <label>Anggaran</label>
-                                <input type="number" name="anggaran" step="0.01" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label>Deskripsi</label>
-                            <textarea name="deskripsi" class="form-control"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label>Media (dokumen/gambar)</label>
-                            <input type="text" name="media" class="form-control">
-                        </div>
-                        <button type="submit" class="btn btn-success">Simpan</button>
-                    </form>
+                <div class="mb-3">
+                    <label>Email</label>
+                    <input type="email" name="email" class="form-control"
+                        value="{{ old('email', $warga->email) }}" required>
                 </div>
-            </div>
 
-            <!-- Tabel daftar program -->
-            <div class="card shadow-sm">
-                <div class="card-header bg-secondary text-white">Data Program</div>
-                <div class="card-body">
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>Kode</th>
-                                <th>Nama Program</th>
-                                <th>Tahun</th>
-                                <th>Anggaran</th>
-                                <th>Media</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($programs as $program)
-                                <tr>
-                                    <td>{{ $program->kode }}</td>
-                                    <td>{{ $program->nama_program }}</td>
-                                    <td>{{ $program->tahun }}</td>
-                                    <td>{{ number_format($program->anggaran, 2) }}</td>
-                                    <td>{{ $program->media }}</td>
-                                    <td>
-                                        <a href="{{ route('event.edit', $program->program_id) }}"
-                                            class="btn btn-warning btn-sm">Edit</a>
-                                        <form action="{{ route('event.destroy', $program->program_id) }}"
-                                            method="POST" class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-danger btn-sm"
-                                                onclick="return confirm('Yakin hapus?')">Hapus</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                <button type="submit" class="btn btn-primary">Perbarui</button>
+                <a href="{{ route('warga.index') }}" class="btn btn-secondary">Kembali</a>
+            </form>
         </div>
-        <!-- Event End -->
-
+        <!-- Features End -->
 
         <!-- Banner Start -->
         <div class="container-fluid banner py-5">
@@ -293,17 +214,12 @@
                 <div class="banner-inner bg-light p-5 wow fadeIn" data-wow-delay="0.1s">
                     <div class="row justify-content-center">
                         <div class="col-lg-8 py-5 text-center">
-                            <h1 class="display-6 wow fadeIn" data-wow-delay="0.3s">Our Door Are Always
-                                Open to
-                                More People
+                            <h1 class="display-6 wow fadeIn" data-wow-delay="0.3s">Our Door Are Always Open to More
+                                People
                                 Who Want to Support Each Others!</h1>
-                            <p class="fs-5 mb-4 wow fadeIn" data-wow-delay="0.5s">Through your donations
-                                and
-                                volunteer
+                            <p class="fs-5 mb-4 wow fadeIn" data-wow-delay="0.5s">Through your donations and volunteer
                                 work,
-                                we spread kindness and support to children, families, and communities
-                                struggling to
-                                find
+                                we spread kindness and support to children, families, and communities struggling to find
                                 stability.</p>
                             <div class="d-flex justify-content-center wow fadeIn" data-wow-delay="0.7s">
                                 <a class="btn btn-primary py-3 px-4 me-3" href="#!">Donate Now</a>
@@ -322,8 +238,7 @@
                 <div class="row g-5 py-5">
                     <div class="col-lg-3 col-md-6">
                         <h4 class="text-light mb-4">Our Office</h4>
-                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York,
-                            USA</p>
+                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
                         <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
                         <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
                         <div class="d-flex pt-3">
@@ -381,15 +296,13 @@
                 <div class="copyright pt-5">
                     <div class="row">
                         <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                            &copy; <a class="fw-semi-bold" href="#!">Your Site Name</a>, All Right
-                            Reserved.
+                            &copy; <a class="fw-semi-bold" href="#!">Your Site Name</a>, All Right Reserved.
                         </div>
                         <div class="col-md-6 text-center text-md-end">
                             <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
                             <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
                             <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
-                            Designed By <a class="fw-semi-bold" href="https://htmlcodex.com">HTML
-                                Codex</a>.
+                            Designed By <a class="fw-semi-bold" href="https://htmlcodex.com">HTML Codex</a>.
                             Distributed
                             by
                             <a class="fw-semi-bold" href="https://themewagon.com">ThemeWagon</a>
