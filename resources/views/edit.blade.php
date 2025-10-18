@@ -104,19 +104,23 @@
                     <div class="navbar-nav me-auto">
                         <a href="dashboard" class="nav-item nav-link active">Home</a>
                         <a href="about" class="nav-item nav-link">About</a>
-                        <a href="service" class="nav-item nav-link">Service</a>
-                        <a href="donation" class="nav-item nav-link">Donation</a>
+                        <a href="program" class="nav-item nav-link">Program</a>
+                        <a href="warga" class="nav-item nav-link">Data Warga</a>
+
+                        <!--
                         <div class="nav-item dropdown">
                             <a href="#!" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                             <div class="dropdown-menu bg-light m-0">
-                                <a href="event" class="dropdown-item">Event</a>
-                                <a href="feature" class="dropdown-item">Feature</a>
+                                <a href="service" class="dropdown-item">Service</a>
+                                <a href="donation" class="dropdown-item">Donation</a>
                                 <a href="team" class="dropdown-item">Our Team</a>
                                 <a href="testimonial" class="dropdown-item">Testimonial</a>
                                 <a href="404" class="dropdown-item">404 Page</a>
                             </div>
                         </div>
-                        <a href="contact" class="nav-item nav-link">Contact</a>
+                        -->
+
+                        <!-- <a href="contact" class="nav-item nav-link">Contact</a>-->
                     </div>
                     <div class="d-none d-lg-flex ms-auto">
                         <a class="btn btn-square btn-dark ms-2" href="#!"><i class="fab fa-twitter"></i></a>
@@ -133,75 +137,29 @@
     <!-- Page Header Start -->
     <div class="container-fluid page-header py-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container text-center py-4">
-            <h1 class="display-3 animated slideInDown">Event</h1>
-            <nav aria-label="breadcrumb animated slideInDown">
-                <ol class="breadcrumb justify-content-center mb-0">
-                    <li class="breadcrumb-item"><a href="#!">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#!">Pages</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Program</li>
-                </ol>
-            </nav>
+            <div class="text-center mx-auto wow fadeIn" data-wow-delay="0.1s" style="max-width: 500px;">
+                <h1 class="display-6 mb-4">BANTUAN SOSIAL PEMERINTAH</h1>
+                <nav aria-label="breadcrumb animated slideInDown">
+                    <ol class="breadcrumb justify-content-center mb-0">
+                        <li class="breadcrumb-item"><a href="#!">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#!">Pages</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Program</li>
+                    </ol>
+                </nav>
+            </div>
         </div>
     </div>
     <!-- Page Header End -->
-
-
-    <!-- Video Start -->
-    <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s">
-        <div class="container">
-            <div class="row g-0">
-                <div class="col-lg-11">
-                    <div class="h-100 py-5 d-flex align-items-center">
-                        <button type="button" class="btn-play" data-bs-toggle="modal"
-                            data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-bs-target="#videoModal">
-                            <span></span>
-                        </button>
-                        <h3 class="ms-5 mb-0">Together, we can build a world where everyone has the chance to thrive.
-                        </h3>
-                    </div>
-                </div>
-                <div class="d-none d-lg-block col-lg-1">
-                    <div class="h-100 w-100 bg-secondary d-flex align-items-center justify-content-center">
-                        <span class="text-white" style="transform: rotate(-90deg);">Scroll Down</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Video End -->
-
-
-    <!-- Video Modal Start -->
-    <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content rounded-0">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Youtube Video</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- 16:9 aspect ratio -->
-                    <div class="ratio ratio-16x9">
-                        <iframe class="embed-responsive-item" src="" id="video" allowfullscreen
-                            allowscriptaccess="always" allow="autoplay"></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Video Modal End -->
-
 
     <!-- Event Start -->
     <div class="container-fluid py-5">
         <div class="container">
             <div class="text-center mx-auto wow fadeIn" data-wow-delay="0.1s" style="max-width: 500px;">
-                <p class="section-title bg-white text-center text-primary px-3">PROGRAM</p>
-                <h1 class="display-6 mb-4">BANTUAN SOSIAL PEMERINTAH</h1>
+                <p class="section-title bg-white text-center text-primary px-3">Edit Program Bantuan</p>
             </div>
+            <h1></h1>
 
             <div class="container mt-4">
-                <h2 class="mb-3 text-center">Edit Program</h2>
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <form action="{{ route('event.update', $program->program_id) }}" method="POST">

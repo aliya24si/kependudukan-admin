@@ -305,9 +305,9 @@
             <div class="row g-5 py-5">
                 <div class="col-lg-3 col-md-6">
                     <h4 class="text-light mb-4">Our Office</h4>
-                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
-                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Umban sari, Rumbai, Pekanbaru</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+62 82391906810</p>
+                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>safwa24si@mahasiswa.pcr.ac.id</p>
                     <div class="d-flex pt-3">
                         <a class="btn btn-square btn-primary me-2" href="#!"><i
                                 class="fab fa-x-twitter"></i></a>
@@ -362,7 +362,7 @@
             <div class="copyright pt-5">
                 <div class="row">
                     <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        &copy; <a class="fw-semi-bold" href="#!">Your Site Name</a>, All Right Reserved.
+                        &copy; <a class="fw-semi-bold" href="#!">Aliya Safwa Shafira</a>, All Right Reserved.
                     </div>
                     <div class="col-md-6 text-center text-md-end">
                         <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->

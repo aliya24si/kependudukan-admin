@@ -150,7 +150,9 @@
 
     <!-- Features Start -->
     <div class="container mt-4">
-        <h4>Edit Data Warga</h4>
+        <div class="text-center mx-auto wow fadeIn" data-wow-delay="0.1s" style="max-width: 500px;">
+            <p class="section-title bg-white text-center text-primary px-3">Edit Data Warga</p>
+        </div>
 
         @if ($errors->any())
             <div class="alert alert-danger">
