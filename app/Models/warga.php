@@ -11,7 +11,6 @@ class Warga extends Model
 
     protected $table = 'warga';
     protected $primaryKey = 'warga_id';
-    public $timestamps = false;
 
     protected $fillable = [
         'no_ktp',
@@ -20,6 +19,6 @@ class Warga extends Model
         'agama',
         'pekerjaan',
         'telp',
-        'email',
+        'email'
     ];
 }

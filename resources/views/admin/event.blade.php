@@ -105,7 +105,7 @@
                         <a href="dashboard" class="nav-item nav-link active">Home</a>
                         <a href="about" class="nav-item nav-link">About</a>
                         <a href="program" class="nav-item nav-link">Program</a>
-                        <a href="feature" class="nav-item nav-link">Data Warga</a>
+                        <a href="warga" class="nav-item nav-link">Data Warga</a>
 
                         <!--
                         <div class="nav-item dropdown">
@@ -120,7 +120,7 @@
                         </div>
                         -->
 
-                        <a href="contact" class="nav-item nav-link">Contact</a>
+                        <!-- <a href="contact" class="nav-item nav-link">Contact</a>-->
                     </div>
                     <div class="d-none d-lg-flex ms-auto">
                         <a class="btn btn-square btn-dark ms-2" href="#!"><i class="fab fa-twitter"></i></a>
@@ -137,73 +137,36 @@
     <!-- Page Header Start -->
     <div class="container-fluid page-header py-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container text-center py-4">
-            <h1 class="display-3 animated slideInDown">Program</h1>
-            <nav aria-label="breadcrumb animated slideInDown">
-                <ol class="breadcrumb justify-content-center mb-0">
-                    <li class="breadcrumb-item"><a href="#!">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#!">Pages</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Program</li>
-                </ol>
-            </nav>
+            <div class="text-center mx-auto wow fadeIn" data-wow-delay="0.1s" style="max-width: 500px;">
+                <h1 class="display-6 mb-4">BANTUAN SOSIAL PEMERINTAH</h1>
+                <nav aria-label="breadcrumb animated slideInDown">
+                    <ol class="breadcrumb justify-content-center mb-0">
+                        <li class="breadcrumb-item"><a href="#!">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#!">Pages</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Program</li>
+                    </ol>
+                </nav>
+            </div>
         </div>
     </div>
     <!-- Page Header End -->
 
-
-    <!-- Video Start -->
-    <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s">
-        <div class="container">
-            <div class="row g-0">
-                <div class="col-lg-11">
-                    <div class="h-100 py-5 d-flex align-items-center">
-                        <button type="button" class="btn-play" data-bs-toggle="modal"
-                            data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-bs-target="#videoModal">
-                            <span></span>
-                        </button>
-                        <h3 class="ms-5 mb-0">Together, we can build a world where everyone has the chance to thrive.
-                        </h3>
-                    </div>
-                </div>
-                <div class="d-none d-lg-block col-lg-1">
-                    <div class="h-100 w-100 bg-secondary d-flex align-items-center justify-content-center">
-                        <span class="text-white" style="transform: rotate(-90deg);">Scroll Down</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Video End -->
-
-
-    <!-- Video Modal Start -->
-    <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content rounded-0">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Youtube Video</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- 16:9 aspect ratio -->
-                    <div class="ratio ratio-16x9">
-                        <iframe class="embed-responsive-item" src="" id="video" allowfullscreen
-                            allowscriptaccess="always" allow="autoplay"></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Video Modal End -->
-
-
     <!-- Event Start -->
     <div class="container-fluid py-5">
         <div class="container">
-            <div class="text-center mx-auto wow fadeIn" data-wow-delay="0.1s" style="max-width: 500px;">
-                <p class="section-title bg-white text-center text-primary px-3">PROGRAM</p>
-                <h1 class="display-6 mb-4">BANTUAN SOSIAL PEMERINTAH</h1>
-            </div>
-
+            @if (session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <strong>Terjadi kesalahan:</strong>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <!-- Form tambah data -->
             <div class="card mb-4 shadow-sm">
                 <div class="card-header bg-primary text-white">Tambah Program</div>
@@ -242,7 +205,6 @@
                     </form>
                 </div>
             </div>
-
             <!-- Tabel daftar program -->
             <div class="card shadow-sm">
                 <div class="card-header bg-secondary text-white">Data Program</div>
@@ -283,31 +245,17 @@
                     </table>
                 </div>
             </div>
-        </div>
-        <!-- Event End -->
+            <!-- Event End -->
 
 
-        <!-- Banner Start -->
-        <div class="container-fluid banner py-5">
-            <div class="container">
-                <div class="banner-inner bg-light p-5 wow fadeIn" data-wow-delay="0.1s">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-8 py-5 text-center">
-                            <h1 class="display-6 wow fadeIn" data-wow-delay="0.3s">Our Door Are Always
-                                Open to
-                                More People
-                                Who Want to Support Each Others!</h1>
-                            <p class="fs-5 mb-4 wow fadeIn" data-wow-delay="0.5s">Through your donations
-                                and
-                                volunteer
-                                work,
-                                we spread kindness and support to children, families, and communities
-                                struggling to
-                                find
-                                stability.</p>
-                            <div class="d-flex justify-content-center wow fadeIn" data-wow-delay="0.7s">
-                                <a class="btn btn-primary py-3 px-4 me-3" href="#!">Donate Now</a>
-                                <a class="btn btn-secondary py-3 px-4" href="#!">Join Us Now</a>
+            <!-- Banner Start -->
+            <div class="container-fluid banner py-5">
+                <div class="container">
+                    <div class="banner-inner bg-light p-5 wow fadeIn" data-wow-delay="0.1s">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8 py-5 text-center">
+
+
                             </div>
                         </div>
                     </div>
