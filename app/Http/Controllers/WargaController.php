@@ -9,7 +9,7 @@ class WargaController extends Controller
     // Index & Create in one page
     public function index()
     {
-        $warga = Warga::all();
+        $warga= Warga::all();
         //dd('Controller dijalankan', $warga);
         return view('admin.feature', compact('warga'));
 

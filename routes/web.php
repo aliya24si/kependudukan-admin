@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\WargaController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\DashboardController;
@@ -17,7 +19,22 @@ Route::get('/penerima', [PenerimaBantuanController::class, 'index'])->name('pene
 Route::get('/auth', [AuthController::class, 'index']);
 Route::post('/auth/login', [AuthController::class, 'login']);
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+
+
+
+Route::resource('login', LoginController::class)->only(['index', 'store']);
+
+// dashboard diarahkan ke view/admin/dashboard.blade.php
+Route::get('/dashboard', function () { return view('admin.dashboard'); })->name('dashboard');
+
+Route::post('/logout', function () {
+    Session::flush(); // hapus semua data sesi
+    return redirect('/login')->with('success', 'Berhasil logout!');
+})->name('logout');
+
+Route::resource('users', UserController::class);
+
 
 
 
@@ -26,18 +43,6 @@ Route::post('/program/store', [ProgramController::class, 'store'])->name('event.
 Route::get('/program/{id}/edit', [ProgramController::class, 'edit'])->name('event.edit');
 Route::put('/program/{id}', [ProgramController::class, 'update'])->name('event.update');
 Route::delete('/program/{id}', [ProgramController::class, 'destroy'])->name('event.destroy');
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -51,19 +56,14 @@ Route::delete('/warga/{id}', [WargaController::class, 'destroy'])->name('warga.d
 
 
 
-
-
-
-
-
 Route::get('/about', [DashboardController::class, 'about'])->name('about');
 Route::get('/service', [DashboardController::class, 'service'])->name('service');
 Route::get('/donation', [DashboardController::class, 'donation'])->name('donation');
 //Route::get('/event', [DashboardController::class, 'event'])->name('event');
-Route::get('/feature', [DashboardController::class, 'feature'])->name('feature');
+//Route::get('/feature', [DashboardController::class, 'feature'])->name('feature');
 Route::get('/team', [DashboardController::class, 'team'])->name('team');
 Route::get('/testimonial', [DashboardController::class, 'testimonial'])->name('testimonial');
-Route::get('/contact', [DashboardController::class, 'contact'])->name('contact');
+//Route::get('/contact', [DashboardController::class, 'contact'])->name('contact');
 Route::get('/404', [DashboardController::class, 'error'])->name('404');
 
 
