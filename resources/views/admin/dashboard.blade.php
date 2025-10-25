@@ -50,17 +50,15 @@
                 <div class="row g-5 align-items-center">
                     <div class="col-lg-6">
                         <div class="carousel-text">
-                            <h1 class="display-1 text-uppercase mb-3">Together for a Better Tomorrow</h1>
-                            <p class="fs-5 mb-5">We believe in creating opportunities and empowering communities
-                                through
-                                education, healthcare, and sustainable development.</p>
+                            <h1 class="display-1 text-uppercase mb-3">bersama kita wujudkan kepedulian</h1>
+                            <p class="fs-5 mb-5">Data yang transparan, bantuan yang tepat sasaran, dan harapan yang nyata untuk masyarakat.</p>
                             <div class="d-flex">
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="carousel-img">
-                            <img class="w-100" src="{{ asset('assets-admin/img/carousel-1.jpg') }}" alt="Image">
+                            <img class="w-100" src="{{ asset('assets-admin/img/carousel-1.jpeg') }}" alt="Image">
                         </div>
                     </div>
                 </div>
@@ -69,18 +67,18 @@
                 <div class="row g-5 align-items-center">
                     <div class="col-lg-6">
                         <div class="carousel-text">
-                            <h1 class="display-1 text-uppercase mb-3">Together, We Can End Hunger</h1>
-                            <p class="fs-5 mb-5">No one should go to bed hungry. Your support helps us bring smiles,
-                                hope, and a brighter future to those in need.</p>
+                            <h1 class="display-1 text-uppercase mb-3">Sejahtera bagi sesama</h1>
+                            <p class="fs-5 mb-5">
+                                Pantau, kelola, dan salurkan bantuan sosial dengan mudah dan efisien.</p>
                             <div class="d-flex mt-4">
-                                <a class="btn btn-primary py-3 px-4 me-3" href="#!">Donate Now</a>
-                                <a class="btn btn-secondary py-3 px-4" href="#!">Join Us Now</a>
+                                <a class="btn btn-primary py-3 px-4 me-3" href="users">Create Account</a>
+                                <a class="btn btn-secondary py-3 px-4" href="warga">Join Us Now</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="carousel-img">
-                            <img class="w-100" src="{{ asset('assets-admin/img/carousel-2.jpg') }}" alt="Image">
+                            <img class="w-100" src="{{ asset('assets-admin/img/carousel-2.jpeg') }}" alt="Image">
                         </div>
                     </div>
                 </div>
