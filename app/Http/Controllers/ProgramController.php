@@ -11,7 +11,8 @@ class ProgramController extends Controller
     public function index()
     {
         $programs = Program::orderBy('tahun', 'desc')->get();
-        return view('admin.event', compact('programs'));
+        return view('pages.program.event', compact('programs'));
+
     }
 
     // Simpan data baru
@@ -35,7 +36,7 @@ class ProgramController extends Controller
     public function edit($id)
     {
         $program = Program::findOrFail($id);
-        return view('edit', compact('program'));
+        return view('program.edit', compact('program'));
     }
 
     // Update data

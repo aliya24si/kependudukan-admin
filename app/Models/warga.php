@@ -2,15 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Warga extends Model
 {
-    use HasFactory;
+    protected $table = 'warga';  // nama tabel
 
-    protected $table = 'warga';
-    protected $primaryKey = 'warga_id';
+    protected $primaryKey = 'warga_id'; // sesuaikan jika pk bukan 'id'
 
     protected $fillable = [
         'no_ktp',
@@ -19,6 +17,8 @@ class Warga extends Model
         'agama',
         'pekerjaan',
         'telp',
-        'email'
+        'email',
     ];
+
+    public $timestamps = false; // jika tidak ada kolom created_at & updated_at
 }

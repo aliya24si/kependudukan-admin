@@ -26,7 +26,7 @@ Route::post('/auth/login', [AuthController::class, 'login']);
 Route::resource('login', LoginController::class)->only(['index', 'store']);
 
 // dashboard diarahkan ke view/admin/dashboard.blade.php
-Route::get('/dashboard', function () { return view('admin.dashboard'); })->name('dashboard');
+Route::get('/dashboard', function () { return view('pages.dashboard'); })->name('dashboard');
 
 Route::post('/logout', function () {
     Session::flush(); // hapus semua data sesi
@@ -36,22 +36,10 @@ Route::post('/logout', function () {
 Route::resource('users', UserController::class);
 
 
+Route::resource('warga', WargaController::class);
 
+Route::resource('programs', ProgramController::class);
 
-Route::get('/program', [ProgramController::class, 'index'])->name('event.index');
-Route::post('/program/store', [ProgramController::class, 'store'])->name('event.store');
-Route::get('/program/{id}/edit', [ProgramController::class, 'edit'])->name('event.edit');
-Route::put('/program/{id}', [ProgramController::class, 'update'])->name('event.update');
-Route::delete('/program/{id}', [ProgramController::class, 'destroy'])->name('event.destroy');
-
-
-
-
-Route::get('/warga', [WargaController::class, 'index'])->name('warga.index');
-Route::post('/warga', [WargaController::class, 'store'])->name('warga.store');
-Route::get('/warga/{id}/edit', [WargaController::class, 'edit'])->name('warga.edit');
-Route::put('/warag/{id}', [WargaController::class, 'update'])->name('warga.update');
-Route::delete('/warga/{id}', [WargaController::class, 'destroy'])->name('warga.destroy');
 
 
 

@@ -1,67 +1,124 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use App\Models\Warga;
 use Illuminate\Http\Request;
+use App\Models\Warga;  // Pastikan model Warga sudah dibuat sesuai tabel
 
 class WargaController extends Controller
 {
-    // Index & Create in one page
+    // Menampilkan halaman index dengan data warga
     public function index()
     {
-        $warga= Warga::all();
-        //dd('Controller dijalankan', $warga);
-        return view('admin.feature', compact('warga'));
+        // Ambil semua data warga dari DB, bisa pakai pagination juga
+        $warga = Warga::all();
 
+        // Kirim data ke view
+        return view('pages.warga.index', compact('warga'));
     }
 
-    // Store data
+    // Menampilkan form tambah data (opsional, karena form sudah di include di index)
+    public function create()
+    {
+        return view('pages.warga.create');
+    }
+
+    // Menyimpan data warga baru ke database
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'no_ktp'        => 'required|unique:warga,no_ktp',
-            'nama'          => 'required|string|max:100',
-            'jenis_kelamin' => 'required',
-            'agama'         => 'required',
-            'pekerjaan'     => 'required',
-            'telp'          => 'nullable|string|max:20',
-            'email'         => 'nullable|email',
+        // Validasi data input
+        $request->validate([
+            'no_ktp' => 'required|unique:warga,no_ktp', // unique di tabel warga kolom no_ktp
+            'nama' => 'required|string|max:255',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+            'agama' => 'required|string|max:100',
+            'pekerjaan' => 'required|string|max:100',
+            'telp' => 'required|string|max:20',
+            'email' => 'required|email|unique:warga,email',
+        ], [
+            'no_ktp.required' => 'No KTP wajib diisi.',
+            'no_ktp.unique' => 'No KTP sudah digunakan.',
+            'nama.required' => 'Nama wajib diisi.',
+            'jenis_kelamin.required' => 'Jenis kelamin wajib dipilih.',
+            'jenis_kelamin.in' => 'Jenis kelamin tidak valid.',
+            'agama.required' => 'Agama wajib diisi.',
+            'pekerjaan.required' => 'Pekerjaan wajib diisi.',
+            'telp.required' => 'No Telp wajib diisi.',
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'email.unique' => 'Email sudah digunakan.',
         ]);
 
-        Warga::create($validated);
-        return redirect()->back()->with('success', 'Data warga berhasil ditambahkan!');
+        // Simpan data ke database
+        Warga::create([
+            'no_ktp' => $request->no_ktp,
+            'nama' => $request->nama,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'agama' => $request->agama,
+            'pekerjaan' => $request->pekerjaan,
+            'telp' => $request->telp,
+            'email' => $request->email,
+        ]);
+
+        // Redirect ke halaman warga dengan pesan sukses
+        return redirect()->route('warga.index')->with('success', 'Data warga berhasil disimpan.');
     }
 
-    // Edit form
+    // Menampilkan form edit data warga
     public function edit($id)
     {
         $warga = Warga::findOrFail($id);
-        return view('edit_feature', compact('warga'));
+        return view('pages.warga.edit', compact('warga'));
     }
 
-    // Update data
+    // Update data warga
     public function update(Request $request, $id)
     {
         $warga = Warga::findOrFail($id);
 
-        $validated = $request->validate([
-            'no_ktp'        => 'required|unique:warga,no_ktp,' . $warga->warga_id . ',warga_id',
-            'nama'          => 'required|string|max:100',
-            'jenis_kelamin' => 'required',
-            'agama'         => 'required',
-            'pekerjaan'     => 'required',
-            'telp'          => 'nullable|string|max:20',
-            'email'         => 'nullable|email',
+        // Validasi data update (perhatikan pengecualian unique untuk data yang sama)
+        $request->validate([
+            'no_ktp' => 'required|unique:warga,no_ktp,' . $warga->warga_id . ',warga_id',
+            'nama' => 'required|string|max:255',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+            'agama' => 'required|string|max:100',
+            'pekerjaan' => 'required|string|max:100',
+            'telp' => 'required|string|max:20',
+            'email' => 'required|email|unique:warga,email,' . $warga->warga_id . ',warga_id',
+        ], [
+            'no_ktp.required' => 'No KTP wajib diisi.',
+            'no_ktp.unique' => 'No KTP sudah digunakan.',
+            'nama.required' => 'Nama wajib diisi.',
+            'jenis_kelamin.required' => 'Jenis kelamin wajib dipilih.',
+            'jenis_kelamin.in' => 'Jenis kelamin tidak valid.',
+            'agama.required' => 'Agama wajib diisi.',
+            'pekerjaan.required' => 'Pekerjaan wajib diisi.',
+            'telp.required' => 'No Telp wajib diisi.',
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'email.unique' => 'Email sudah digunakan.',
         ]);
 
-        $warga->update($validated);
-        return redirect()->route('warga.index')->with('success', 'Data warga berhasil diperbarui!');
+        // Update data
+        $warga->update([
+            'no_ktp' => $request->no_ktp,
+            'nama' => $request->nama,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'agama' => $request->agama,
+            'pekerjaan' => $request->pekerjaan,
+            'telp' => $request->telp,
+            'email' => $request->email,
+        ]);
+
+        return redirect()->route('warga.index')->with('success', 'Data warga berhasil diperbarui.');
     }
 
-    // Delete data
+    // Hapus data warga
     public function destroy($id)
     {
-        Warga::findOrFail($id)->delete();
-        return redirect()->back()->with('success', 'Data warga berhasil dihapus!');
+        $warga = Warga::findOrFail($id);
+        $warga->delete();
+
+        return redirect()->route('warga.index')->with('success', 'Data warga berhasil dihapus.');
     }
 }

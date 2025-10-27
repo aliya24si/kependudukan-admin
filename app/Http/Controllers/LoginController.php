@@ -11,7 +11,8 @@ class LoginController extends Controller
     // Menampilkan halaman login
     public function index()
     {
-        return view('login');
+        // Sesuaikan dengan struktur folder views/pages/login.blade.php
+        return view('pages.login');
     }
 
     // Proses login

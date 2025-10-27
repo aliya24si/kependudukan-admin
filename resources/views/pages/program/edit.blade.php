@@ -58,7 +58,7 @@
             <div class="container mt-4">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <form action="{{ route('event.update', $program->program_id) }}" method="POST">
+                        <form action="{{ route('programs', $program->program_id) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="mb-3">
@@ -91,7 +91,7 @@
                                     class="form-control">
                             </div>
                             <button type="submit" class="btn btn-success">Perbarui</button>
-                            <a href="{{ route('event.index') }}" class="btn btn-secondary">Kembali</a>
+                            <a href="{{ route('programs') }}" class="btn btn-secondary">Kembali</a>
                         </form>
                     </div>
                 </div>

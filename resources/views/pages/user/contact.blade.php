@@ -13,7 +13,6 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav me-auto">
                         <a href="dashboard" class="nav-item nav-link">Home</a>
-                        <a href="about" class="nav-item nav-link">About</a>
                         <a href="program" class="nav-item nav-link">Program Bantuan</a>
                         <a href="warga" class="nav-item nav-link">Data Warga</a>
                         <a href="users" class="nav-item nav-link active">Data User</a>

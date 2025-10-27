@@ -8,31 +8,44 @@
         <div class="nav-bar">
             <nav class="navbar navbar-expand-lg bg-primary navbar-dark px-4 py-lg-0">
                 <h4 class="d-lg-none m-0">Menu</h4>
-                <button type="button" class="navbar-toggler me-0" data-bs-toggle="collapse"
-                    data-bs-target="#navbarCollapse">
+                <button type="button" class="navbar-toggler me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav me-auto">
-                        <a href="dashboard" class="nav-item nav-link active">Home</a>
-                        <a href="about" class="nav-item nav-link">About</a>
-                        <a href="program" class="nav-item nav-link">Program Bantuan</a>
-                        <a href="warga" class="nav-item nav-link">Data Warga</a>
-                        <a href="users" class="nav-item nav-link">Data User</a>
+                        <!-- Home -->
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="bi bi-house-door-fill fs-4 text-light me-2"></i>
+                            <a href="dashboard" class="nav-item nav-link active">Home</a>
+                        </div>
+
+                        <!-- Program Bantuan -->
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="bi bi-box-seam fs-4 text-light me-2"></i>
+                            <a href="programs" class="nav-item nav-link">Program Bantuan</a>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-people-fill fs-4 text-light me-2"></i>
+                            <a href="warga" class="nav-item nav-link">Data Warga</a>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-person-circle fs-4 text-light me-2"></i>
+                            <a href="user.contact" class="nav-item nav-link">Data User</a>
+                        </div>
                     </div>
                     <!-- <div class="d-none d-lg-flex ms-auto">
-                        <a class="btn btn-square btn-dark ms-2" href="#!"><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-square btn-dark ms-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-square btn-dark ms-2" href="#!"><i class="fab fa-youtube"></i></a>
-                    </div>-->
+                                                                <a class="btn btn-square btn-dark ms-2" href="#!"><i class="fab fa-twitter"></i></a>
+                                                                <a class="btn btn-square btn-dark ms-2" href="#!"><i class="fab fa-facebook-f"></i></a>
+                                                                <a class="btn btn-square btn-dark ms-2" href="#!"><i class="fab fa-youtube"></i></a>
+                                                            </div>-->
                 </div>
                 <div class="d-none d-lg-flex ms-auto align-items-center">
                     @if (session('user_name'))
                         <span class="text-green me-3">
                             Selamat datang, <strong>{{ session('user_name') }}</strong>!
                         </span>
-                        <form action="{{ route('logout') }}" method="POST"
-                            onsubmit="return confirm('Yakin mau logout?')" class="mb-0">
+                        <form action="{{ route('logout') }}" method="POST" onsubmit="return confirm('Yakin mau logout?')"
+                            class="mb-0">
                             @csrf
                             <button type="submit" class="btn btn-danger btn-sm">Logout</button>
                         </form>
@@ -43,6 +56,10 @@
     </div>
     <!-- Navbar End -->
 
+    <a href="https://wa.me/6282390916810" target="_blank" class="floating-whatsapp">
+        <i class="bi bi-whatsapp"></i>
+    </a>
+
     <!-- Carousel Start -->
     <div class="container-fluid p-0 wow fadeIn" data-wow-delay="0.1s">
         <div class="owl-carousel header-carousel py-5">
@@ -51,7 +68,8 @@
                     <div class="col-lg-6">
                         <div class="carousel-text">
                             <h1 class="display-1 text-uppercase mb-3">bersama kita wujudkan kepedulian</h1>
-                            <p class="fs-5 mb-5">Data yang transparan, bantuan yang tepat sasaran, dan harapan yang nyata untuk masyarakat.</p>
+                            <p class="fs-5 mb-5">Data yang transparan, bantuan yang tepat sasaran, dan harapan yang nyata
+                                untuk masyarakat.</p>
                             <div class="d-flex">
                             </div>
                         </div>

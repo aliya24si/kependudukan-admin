@@ -12,7 +12,6 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav me-auto">
                         <a href="dashboard" class="nav-item nav-link">Home</a>
-                        <a href="about" class="nav-item nav-link">About</a>
                         <a href="program" class="nav-item nav-link active">Program Bantuan</a>
                         <a href="warga" class="nav-item nav-link">Data Warga</a>
                         <a href="users" class="nav-item nav-link">Data User</a>
@@ -66,7 +65,7 @@
             <div class="card mb-4 shadow-sm">
                 <div class="card-header bg-primary text-white">Tambah Program</div>
                 <div class="card-body">
-                    <form action="{{ route('event.store') }}" method="POST">
+                    <form action="{{ route('programs') }}" method="POST">
                         @csrf
                         <div class="row mb-3">
                             <div class="col">
@@ -125,9 +124,9 @@
                                     <td>{{ number_format($program->anggaran, 2) }}</td>
                                     <td>{{ $program->media }}</td>
                                     <td>
-                                        <a href="{{ route('event.edit', $program->program_id) }}"
+                                        <a href="{{ route('programs', $program->program_id) }}"
                                             class="btn btn-warning btn-sm">Edit</a>
-                                        <form action="{{ route('event.destroy', $program->program_id) }}" method="POST"
+                                        <form action="{{ route('programs', $program->program_id) }}" method="POST"
                                             class="d-inline">
                                             @csrf
                                             @method('DELETE')

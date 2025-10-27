@@ -5,8 +5,6 @@
     <meta charset="utf-8">
     <title>Dashboard</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
@@ -23,13 +21,15 @@
 
     <!-- Libraries Stylesheet -->
     <link href="{{ asset('assets-admin/lib/animate/animate.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets-admin') }}lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="{{ asset('assets-admin/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{ asset('assets-admin/css/bootstrap.min.css') }}" rel="stylesheet">
 
     <!-- Template Stylesheet -->
     <link href="{{ asset('assets-admin/css/style.css') }}" rel="stylesheet">
+
+
 </head>
 
 <body>
@@ -40,59 +40,41 @@
     </div>
     <!-- Spinner End -->
 
-
-    <!-- Topbar Start -->
-    <div class="container-fluid bg-secondary top-bar wow fadeIn" data-wow-delay="0.1s">
-        <div class="row align-items-center h-100">
-            <div class="col-lg-4 text-center text-lg-start">
-                <a href="index.html">
-                    <h1 class="display-5 text-primary m-0">Bantuan Sosial</h1>
-                </a>
-            </div>
-        </div>
-    </div>
-    <!-- Topbar End -->
-
-    @if (session('success'))
-        <div class="alert alert-success mt-3">
-            {{ session('success') }}
-        </div>
-    @endif
-
-
     <!-- Login Start -->
-    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
-        <div class="container text-center">
-            <div class="row justify-content-center">
-                <div class="col-lg-5">
-                    <i class="bi bi-person-circle display-1 text-primary"></i>
-                    <h1 class="mb-4">Login Admin</h1>
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="card shadow-lg p-0" style="max-width: 400px; width: 100%;">
+            <!-- Foto kotak besar -->
+            <img src="{{ asset('assets-admin/img/login-bg.jpeg') }}" alt="Admin Photo"
+                style="width: 100%; height: 250px; object-fit: cover;">
 
-                    {{-- Notifikasi Error --}}
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            {{ $errors->first() }}
-                        </div>
-                    @endif
+            <div class="p-4">
+                <h3 class="text-center mb-4">Login Admin</h3>
 
-                    {{-- Form Login --}}
-                    <form action="{{ route('login.store') }}" method="POST">
-                        @csrf
-                        <div class="form-floating mb-3">
-                            <input type="email" name="email" class="form-control" id="email" placeholder="Email"
-                                value="{{ old('email') }}" required>
-                            <label for="email">Email</label>
-                        </div>
+                {{-- Notifikasi Error --}}
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        {{ $errors->first() }}
+                    </div>
+                @endif
 
-                        <div class="form-floating mb-3">
-                            <input type="password" name="password" class="form-control" id="password"
-                                placeholder="Password" required>
-                            <label for="password">Password</label>
-                        </div>
+                @if (session('success'))
+                    <div class="alert alert-success text-center">
+                        {{ session('success') }}
+                    </div>
+                @endif
 
-                        <button type="submit" class="btn btn-primary py-2 w-100">Masuk</button>
-                    </form>
-                </div>
+                {{-- Form Login --}}
+                <form action="{{ route('login.store') }}" method="POST">
+                    @csrf
+                    <div class="mb-3">
+                        <input type="email" name="email" class="form-control" placeholder="Email"
+                            value="{{ old('email') }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" name="password" class="form-control" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Masuk</button>
+                </form>
             </div>
         </div>
     </div>
