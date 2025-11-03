@@ -1,11 +1,24 @@
-<!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('assets-admin/lib/wow/wow.min.js') }}"></script>
-    <script src="{{ asset('assets-admin/lib/easing/easing.min.js') }}"></script>
-    <script src="{{ asset('assets-admin/lib/waypoints/waypoints.min.js') }}"></script>
-    <script src="{{ asset('assets-admin/lib/owlcarousel/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('assets-admin/lib/counterup/counterup.min.js') }}"></script>
 
-    <!-- Template Javascript -->
-    <script src="{{ asset('assets-admin/js/main.js') }}"></script>
+    <!-- jQuery -->
+    <script src="{{ asset('assets-admin/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets-admin/js/popper.min.js') }}"></script>
+    <script src="{{ asset('assets-admin/js/bootstrap.min.js') }}"></script>
+    <!-- wow animation -->
+    <script src="{{ asset('assets-admin/js/animate.js') }}"></script>
+    <!-- select country -->
+    <script src="{{ asset('assets-admin/js/bootstrap-select.js') }}"></script>
+    <!-- owl carousel -->
+    <script src="{{ asset('assets-admin/js/owl.carousel.js') }}"></script>
+    <!-- chart js -->
+    <script src="{{ asset('assets-admin/js/Chart.min.js') }}"></script>
+    <script src="{{ asset('assets-admin/js/Chart.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets-admin/js/utils.js') }}"></script>
+    <script src="{{ asset('assets-admin/js/analyser.js') }}"></script>
+    <!-- nice scrollbar -->
+    <script src="{{ asset('assets-admin/js/perfect-scrollbar.min.js') }}"></script>
+    <script>
+        var ps = new PerfectScrollbar('#sidebar');
+    </script>
+    <!-- custom js -->
+    <script src="{{ asset('assets-admin/js/custom.js') }}"></script>
+    <script src="{{ asset('assets-admin/js/chart_custom_style2.js') }}"></script>

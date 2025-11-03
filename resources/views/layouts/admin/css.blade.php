@@ -1,22 +1,23 @@
-<!-- Favicon -->
-    <link href="{{ asset('assets-admin/img/favicon.ico') }}" rel="icon">
+<!-- site icon -->
+    <link rel="icon" href="{{ asset('assets-admin/images/fevicon.png') }}" type="image/png" />
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="{{ asset('assets-admin/css/bootstrap.min.css') }}" />
+    <!-- site css -->
+    <link rel="stylesheet" href="{{ asset('assets-admin/css/style.css') }}" />
+    <!-- responsive css -->
+    <link rel="stylesheet" href="{{ asset('assets-admin/css/responsive.css') }}" />
+    <!-- color css -->
+    <link rel="stylesheet" href="{{ asset('assets-admin/css/color_2.css') }}" />
+    <!-- select bootstrap -->
+    <link rel="stylesheet" href="{{ asset('assets-admin/css/bootstrap-select.css') }}" />
+    <!-- scrollbar css -->
+    <link rel="stylesheet" href="{{ asset('assets-admin/css/perfect-scrollbar.css') }}" />
+    <!-- custom css -->
+    <link rel="stylesheet" href="{{ asset('assets-admin/css/custom.css') }}" />
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@600;700&family=Open+Sans&display=swap"
-        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- Libraries Stylesheet -->
-    <link href="{{ asset('assets-admin/lib/animate/animate.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets-admin/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="{{ asset('assets-admin/css/bootstrap.min.css') }}" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
-    <link href="{{ asset('assets-admin/css/style.css') }}" rel="stylesheet">
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    

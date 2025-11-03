@@ -7,61 +7,78 @@ use App\Models\Program;
 
 class ProgramController extends Controller
 {
-    // Tampilkan semua data + form input di halaman event
+    /**
+     * Tampilkan semua data program
+     */
     public function index()
     {
         $programs = Program::orderBy('tahun', 'desc')->get();
-        return view('pages.program.event', compact('programs'));
-
+        return view('pages.program.index', compact('programs'));
     }
 
-    // Simpan data baru
+    /**
+     * Tampilkan form tambah program baru
+     */
+    public function create()
+    {
+        return view('pages.program.create');
+    }
+
+    /**
+     * Simpan data program baru
+     */
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'kode' => 'required|max:10|unique:programs',
-            'nama_program' => 'required|max:100',
-            'tahun' => 'required|integer',
-            'deskripsi' => 'nullable|string',
-            'anggaran' => 'required|numeric',
-            'media' => 'nullable|string',
+            'kode'        => 'required|max:10|unique:programs,kode',
+            'nama_program'=> 'required|max:100',
+            'tahun'       => 'required|integer',
+            'deskripsi'   => 'nullable|string',
+            'anggaran'    => 'required|numeric',
+            'media'       => 'nullable|string',
         ]);
 
         Program::create($validated);
 
-        return redirect()->route('event.index')->with('success', 'Program berhasil ditambahkan!');
+        return redirect()->route('program.index')->with('success', 'Program berhasil ditambahkan!');
     }
 
-    // Form edit
+    /**
+     * Tampilkan form edit program
+     */
     public function edit($id)
     {
         $program = Program::findOrFail($id);
-        return view('program.edit', compact('program'));
+        return view('pages.program.edit', compact('program'));
     }
 
-    // Update data
+    /**
+     * Update data program
+     */
     public function update(Request $request, $id)
     {
         $program = Program::findOrFail($id);
 
         $validated = $request->validate([
-            'kode' => 'required|max:10|unique:programs,kode,' . $program->program_id . ',program_id',
-            'nama_program' => 'required|max:100',
-            'tahun' => 'required|integer',
-            'deskripsi' => 'nullable|string',
-            'anggaran' => 'required|numeric',
-            'media' => 'nullable|string',
+            'kode'        => 'required|max:10|unique:programs,kode,' . $program->id,
+            'nama_program'=> 'required|max:100',
+            'tahun'       => 'required|integer',
+            'deskripsi'   => 'nullable|string',
+            'anggaran'    => 'required|numeric',
+            'media'       => 'nullable|string',
         ]);
 
         $program->update($validated);
 
-        return redirect()->route('event.index')->with('success', 'Data program berhasil diperbarui!');
+        return redirect()->route('program.index')->with('success', 'Program berhasil diperbarui!');
     }
 
-    // Hapus data
+    /**
+     * Hapus data program
+     */
     public function destroy($id)
     {
         Program::destroy($id);
-        return redirect()->route('event.index')->with('success', 'Program berhasil dihapus!');
+        return redirect()->route('program.index')->with('success', 'Program berhasil dihapus!');
     }
 }
