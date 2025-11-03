@@ -30,14 +30,9 @@
                         </div>
                         <div class="d-flex align-items-center">
                             <i class="bi bi-person-circle fs-4 text-light me-2"></i>
-                            <a href="user.contact" class="nav-item nav-link">Data User</a>
+                            <a href="users" class="nav-item nav-link">Data User</a>
                         </div>
                     </div>
-                    <!-- <div class="d-none d-lg-flex ms-auto">
-                                                                <a class="btn btn-square btn-dark ms-2" href="#!"><i class="fab fa-twitter"></i></a>
-                                                                <a class="btn btn-square btn-dark ms-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-                                                                <a class="btn btn-square btn-dark ms-2" href="#!"><i class="fab fa-youtube"></i></a>
-                                                            </div>-->
                 </div>
                 <div class="d-none d-lg-flex ms-auto align-items-center">
                     @if (session('user_name'))
@@ -56,7 +51,7 @@
     </div>
     <!-- Navbar End -->
 
-    <a href="https://wa.me/6282390916810" target="_blank" class="floating-whatsapp">
+    <a href="https://wa.me/6282391906810" target="_blank" class="floating-whatsapp">
         <i class="bi bi-whatsapp"></i>
     </a>
 

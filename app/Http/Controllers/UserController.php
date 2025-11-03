@@ -12,7 +12,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('user.contact', compact('users'));
+        return view('pages.user.index', compact('users'));
     }
 
     // STORE user baru
@@ -36,7 +36,7 @@ class UserController extends Controller
     // FORM EDIT
     public function edit(User $user)
     {
-        return view('user.edit_user', compact('user'));
+        return view('pages.user.edit_user', compact('user'));
     }
 
     // UPDATE data user
