@@ -2,14 +2,19 @@
 
 @section('content')
 <div class="container py-5">
-    <h3 class="mb-4">Daftar Program Bantuan</h3>
+    <h3 class="mb-4">Daftar Program</h3>
 
-    @if(session('success'))
+    {{-- Flash Message --}}
+    @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <a href="{{ route('programs.create') }}" class="btn btn-primary mb-3">+ Tambah Program</a>
+    {{-- Tombol Tambah --}}
+    <a href="{{ route('programs.create') }}" class="btn btn-primary mb-3">
+        <i class="fa fa-plus"></i> Tambah Program
+    </a>
 
+    {{-- Tabel --}}
     <table class="table table-bordered table-striped">
         <thead class="table-primary">
             <tr>
@@ -22,7 +27,7 @@
             </tr>
         </thead>
         <tbody>
-          @forelse ($programs as $index )
+            @forelse ($programs as $index => $program)
                 <tr>
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $program->kode }}</td>
@@ -30,21 +35,26 @@
                     <td>{{ $program->tahun }}</td>
                     <td>Rp {{ number_format($program->anggaran, 0, ',', '.') }}</td>
                     <td>
-                        <a href="{{ route('program.edit', $program->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                        <form action="{{ route('program.destroy', $program->id) }}" method="POST" style="display:inline">
+                        <!-- Edit -->
+                        <a href="{{ route('programs.edit', $program->program_id) }}" class="btn btn-warning btn-sm">
+                            <i class="fa-solid fa-pen-to-square"></i> Edit
+                        </a>
+
+                        <!-- Delete -->
+                        <form action="{{ route('programs.destroy', $program->program_id) }}" method="POST" style="display:inline">
                             @csrf
                             @method('DELETE')
                             <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin hapus program ini?')">
-                                Hapus
+                                <i class="fa-solid fa-trash-can"></i> Hapus
                             </button>
                         </form>
                     </td>
                 </tr>
-          @empty
+            @empty
                 <tr>
                     <td colspan="6" class="text-center">Belum ada data program</td>
                 </tr>
-             @endforelse
+            @endforelse
         </tbody>
     </table>
 </div>

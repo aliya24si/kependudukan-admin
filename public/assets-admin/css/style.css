@@ -33,9 +33,9 @@
         -> button section
         -> pagination
         -> model bt
-    17. Gallery Section     
+    17. Gallery Section
     18. Icons
-    19. Invoice  
+    19. Invoice
     20. Price table
     21. Mail
     22. Price table page
@@ -44,7 +44,7 @@
     25. Login Section
     26. Error
     27. Map
-   
+
 -------------------------------------------------------------------*/
 
 
@@ -63,9 +63,9 @@
     2. import files
 -------------------------------------------------------------------*/
 
-@import url(css/animate.css);
-@import url(css/flaticon.css);
-@import url(css/font-awesome.min.css);
+@import url('assets-admin/css/animate.css');
+@import url('assets-admin/css/flaticon.css');
+@import url('assets-admin/css/font-awesome.min.css');
 
 /*------------------------------------------------------------------
     3. basic
@@ -88,7 +88,7 @@ body {
 }
 
 body.demos .section {
-    background: url(images/bg.png) repeat top center #f2f3f5;
+    background: url('assets-admin/images/bg.png') repeat top center #f2f3f5;
 }
 
 body.demos .section-title img {
@@ -618,7 +618,7 @@ a:focus {
 
 
 /*==============
-    - topbar 
+    - topbar
 ==============*/
 
 .topbar {
@@ -643,6 +643,7 @@ a:focus {
 .right_topbar {
     float: right;
     padding: 0;
+    margin-right: 15px;
 }
 
 .icon_info {
@@ -823,7 +824,7 @@ span {
 #sidebar {
     min-width: 280px;
     max-width: 280px;
-    background-color: #15283c;
+    background-color: #31577f;
     color: #fff;
     transition: all 0.3s;
     position: relative;
@@ -831,7 +832,7 @@ span {
     box-shadow: 0 0 3px 0px rgba(0, 0, 0, 0.4);
     float: left;
     width: 100%;
-    background-image: url('images/layout_img/pattern_h.png');
+    background-image: url('assets-admin/images/layout_img/pattern_h.png');
     position: fixed;
     height: 100%;
     overflow: auto;
@@ -1026,6 +1027,7 @@ a[data-toggle="collapse"] {
     text-align: center;
     background: transparent;
     float: left;
+    margin-left: 10px;
 }
 
 .logo_section img {
@@ -1671,7 +1673,7 @@ a[data-toggle="collapse"] {
 -------------------------------------------------------------------*/
 
 .dash_head {
-    background-image: url('images/layout_img/pattern_h.png');
+    background-image: url('assets-admin/images/layout_img/pattern_h.png');
     font-weight: normal;
     height: auto;
     border-radius: 5px 5px 0 0;
@@ -2134,7 +2136,7 @@ i.icon {
 
 
 /*------------------------------------------------------------------
-    16. General Elements 
+    16. General Elements
 -------------------------------------------------------------------*/
 
 .link.today {
@@ -2266,7 +2268,7 @@ i.icon {
 
 
 /*------------------------------------------------------------------
-    17. Gallery Section   
+    17. Gallery Section
 -------------------------------------------------------------------*/
 
 .gallery_section_inner .column {
@@ -2291,7 +2293,7 @@ i.icon {
 
 
 /*------------------------------------------------------------------
-    18. Icons  
+    18. Icons
 -------------------------------------------------------------------*/
 
 .fontawesome-icons-list .fw_icon a {
@@ -2332,7 +2334,7 @@ i.icon {
 
 
 /*------------------------------------------------------------------
-    19. Invoice  
+    19. Invoice
 -------------------------------------------------------------------*/
 
 h2.invoice_head {
@@ -2413,7 +2415,7 @@ h2.invoice_head small {
 
 
 /*------------------------------------------------------------------
-    20. Price table  
+    20. Price table
 -------------------------------------------------------------------*/
 
 .price_table table.table {
@@ -3277,21 +3279,27 @@ table.projects tr td:first-child {
 }
 
 .logo_login {
-    background: url('images/layout_img/login_image.jpg');
-    padding: 50px 0;
+    background: url('/assets-admin/images/layout_img/bg-box.jpeg');
     background-position: center center;
+    background-size: cover;
     position: relative;
+    padding: 50px 0;
+    min-height: 200px;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .logo_login::after {
     content: "";
-    display: block;
+    position: absolute;
     width: 100%;
     height: 100%;
-    position: absolute;
-    background: rgba(21, 40, 60, .8);
-    top: 0px;
+    /* Tambah overlay gelap lembut */
+    background: rgba(0, 0, 0, 0.4); /* 40% hitam transparan untuk menurunkan kontras */
+    backdrop-filter: blur(2px); /* bikin sedikit blur agar gambar tidak tajam */
+    top: 0;
     left: 0;
+    z-index: 0;
 }
 
 .logo_login div {
@@ -3401,7 +3409,7 @@ table.projects tr td:first-child {
 }
 
 .error_404 {
-    background: url('images/layout_img/pattern_h.png');
+    background: url('assets-admin/images/layout_img/pattern_h.png');
     background-size: cover;
     background-color: #fff;
 }
@@ -3414,4 +3422,34 @@ table.projects tr td:first-child {
 #map {
     height: 100%;
     min-height: 720px;
+}
+
+.alert-error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c2c7;
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin-bottom: 12px;
+    text-align: center;
+    font-size: 14px;
+    max-width: 380px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* === ACTIVE SIDEBAR MENU === */
+#sidebar ul li a.active {
+    background-color: #0971b8;
+    color: #fff !important;
+    border-radius: 8px;
+}
+
+#sidebar ul li a.active i {
+    color: #fff !important;
+}
+
+#sidebar ul li a:hover {
+    background-color: rgba(9, 113, 184, 0.1);
+    color: #0971b8;
 }

@@ -1,30 +1,33 @@
 <div class="topbar">
-                    <nav class="navbar navbar-expand-lg navbar-light">
-                        <div class="full">
-                            {{-- <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button> --}}
-                            <div class="logo_section">
-                                <a href="index.html"><img class="img-responsive"
-                                        src="{{ asset('assets-admin/images/logo/logo_black.png') }}"
-                                        alt="#" /></a>
-                            </div>
-                            <div class="right_topbar">
-                                <div class="icon_info">
-                                    <ul class="user_profile_dd">
-                                        <li>
-                                            <a class="dropdown-toggle" data-toggle="dropdown"><img
-                                                    class="{{ asset('assets-admin/img-responsive rounded-circle') }}"
-                                                    src="{{ asset('assets-admin/images/layout_img/user_img.jpg') }}"
-                                                    alt="#"><span class="name_user">John David</span></a>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="profile.html">My Profile</a>
-                                                <a class="dropdown-item" href="help.html">Help</a>
-                                                <a class="dropdown-item" href="#"><span>Log Out</span> <i
-                                                        class="fa fa-sign-out"></i></a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </nav>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="full d-flex align-items-center justify-content-between">
+
+            <!-- Tombol sidebar + tulisan -->
+            <div class="d-flex align-items-center">
+                <button type="button" id="sidebarCollapse" class="sidebar_toggle me-3">
+                    <i class="fa fa-bars"></i>
+                </button>
+
+                {{-- <!-- Tulisan Bantuan Sosial -->
+                <div class="logo_section">
+                    <h1>Bantuan Sosial</h1>
+                </div> --}}
+            </div>
+
+            <!-- Tombol Logout -->
+            <div class="right_topbar">
+                <div class="icon_info">
+                    <li>
+                        <form action="{{ route('logout') }}" method="POST" style="display:inline;">
+                            @csrf
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fa fa-sign-out"></i> Logout
+                            </button>
+                        </form>
+                    </li>
                 </div>
+            </div>
+
+        </div>
+    </nav>
+</div>

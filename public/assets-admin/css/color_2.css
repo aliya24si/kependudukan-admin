@@ -47,7 +47,7 @@
 
 #sidebar {
     background-color: #fff;
-    background-image: url('images/layout_img/pattern_h.png');
+    background-image: url('assets-admin/images/layout_img/pattern_h.png');
 }
 
 #sidebar ul.components ul {
@@ -60,7 +60,7 @@
     padding-top: 12px;
     padding-bottom: 12px;
 }
- 
+
 #sidebar ul li a {
 	color: #222;
 }
@@ -88,3 +88,6 @@
 .dash_head {
     background-color: #0971b8;
 }
+
+
+

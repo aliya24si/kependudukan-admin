@@ -12,7 +12,7 @@ class LoginController extends Controller
     public function index()
     {
         // Sesuaikan dengan struktur folder views/pages/login.blade.php
-        return view('pages.login');
+        return view('pages.auth.login');
     }
 
     // Proses login
@@ -37,7 +37,7 @@ class LoginController extends Controller
                 'user_email' => $user->email,
             ]);
 
-            return redirect()->route('dashboard');
+            return redirect()->route('dashboard')->with('success', 'Selamat datang, ' . $user->name . '!');
         }
 
         return back()->withErrors(['email' => 'Email atau password salah.'])->withInput();

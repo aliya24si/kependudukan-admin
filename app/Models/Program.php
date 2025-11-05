@@ -9,8 +9,10 @@ class Program extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'program_id';
-    protected $table = 'programs'; // ← penting agar cocok dengan database kamu
+    protected $table = 'programs';
+    protected $primaryKey = 'program_id'; // ✅ penting
+    public $incrementing = true;
+    protected $keyType = 'int';
 
     protected $fillable = [
         'kode',

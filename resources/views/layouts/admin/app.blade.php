@@ -9,11 +9,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <!-- site metas -->
-    <title>Pluto - Responsive Bootstrap Admin Panel Templates</title>
+    <title>Bantuan Sosial</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <!-- site icon -->
+    <link rel="icon" href="{{ asset('assets-admin/images/fevicon.png') }}" type="image/png" />
     <!-- css -->
     @include('layouts.admin.css')
     <!-- css -->
@@ -22,6 +24,8 @@
 <body class="dashboard dashboard_2">
     <div class="full_container">
         <div class="inner_container">
+
+
             <!-- Sidebar  -->
             @include('layouts.admin.sidebar')
             <!-- end sidebar -->
