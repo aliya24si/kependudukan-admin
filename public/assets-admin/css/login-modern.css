@@ -1,0 +1,187 @@
+/* Layout Dasar */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    background: linear-gradient(90deg, #0b1f4d 0%, #163572 100%);
+}
+
+.login-wrapper {
+    display: flex;
+    width: 100%;
+}
+
+/* Panel Kiri */
+.login-left {
+    flex: 1;
+    color: #fff;
+    padding: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login-left h1 {
+    font-size: 48px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.login-left .subtitle {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.login-left .desc {
+    font-size: 15px;
+    line-height: 1.6;
+    opacity: 0.9;
+    max-width: 420px;
+}
+
+/* Panel Kanan */
+.login-right {
+    flex: 1;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-left-radius: 40px;
+    border-bottom-left-radius: 40px;
+}
+
+.login-card {
+    width: 360px;
+    text-align: center;
+}
+
+.login-card h2 {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.small-text {
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+/* Input dan Tombol */
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    outline: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.form-group input:focus {
+    border-color: #163572;
+    box-shadow: 0 0 4px rgba(22, 53, 114, 0.3);
+}
+
+.btn-login {
+    width: 100%;
+    background: #163572;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-login:hover {
+    background: #0b1f4d;
+}
+
+/* Divider & Social Login */
+.divider {
+    margin: 20px 0;
+    font-size: 14px;
+    color: #aaa;
+    position: relative;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    height: 1px;
+    width: 40%;
+    background: #ddd;
+    position: absolute;
+    top: 50%;
+}
+
+.divider::before {
+    left: 0;
+}
+
+.divider::after {
+    right: 0;
+}
+
+.social-login {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.google-btn,
+.facebook-btn {
+    flex: 1;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.google-btn {
+    background: #fff;
+    border: 1px solid #ddd;
+}
+
+.facebook-btn {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+}
+
+/* Link bawah */
+.signup-text {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.signup-text a {
+    color: #163572;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.signup-text a:hover {
+    text-decoration: underline;
+}
+
+/* Alert styling */
+.alert {
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.alert-success {
+    background-color: #d1e7dd;
+    color: #0f5132;
+    border: 1px solid #badbcc;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #842029;
+    border: 1px solid #f5c2c7;
+}
