@@ -8,9 +8,9 @@ use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PenerimaBantuanController;
 
-// Route::get('/', function () {
-//    return view('login');
-// });
+Route::get('/', function () {
+   return redirect('login');
+});
 
 
 Route::resource('login', LoginController::class)->only(['index', 'store']);
