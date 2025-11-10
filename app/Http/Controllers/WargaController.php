@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\warga;
+use App\Models\Warga;
 use Illuminate\Http\Request;
 
 class WargaController extends Controller
@@ -11,7 +11,7 @@ class WargaController extends Controller
     public function index()
     {
         // Ambil semua data warga dari DB, bisa pakai pagination juga
-        $warga = warga::all();
+        $warga = Warga::all();
 
         // Kirim data ke view
         return view('pages.warga.index', compact('warga'));
