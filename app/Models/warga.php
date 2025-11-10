@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Warga extends Model
+class warga extends Model
 {
     protected $table = 'warga';  // nama tabel
 
