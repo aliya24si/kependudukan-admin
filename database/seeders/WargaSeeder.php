@@ -12,7 +12,6 @@ class WargaSeeder extends Seeder
         Warga::create([
             'no_ktp' => '123456789',
             'nama' => 'Budi Santoso',
-            'alamat' => 'Jl. Melati No. 1',
             'jenis_kelamin' => 'Laki-laki',
             'agama' => 'Islam',
             'pekerjaan' => 'Karyawan Swasta',
@@ -23,7 +22,6 @@ class WargaSeeder extends Seeder
         Warga::create([
             'no_ktp' => '987654321',
             'nama' => 'Siti Aminah',
-            'alamat' => 'Jl. Mawar No. 2',
             'jenis_kelamin' => 'Perempuan',
             'agama' => 'Islam',
             'pekerjaan' => 'Ibu Rumah Tangga',
@@ -34,7 +32,6 @@ class WargaSeeder extends Seeder
         Warga::create([
             'no_ktp' => '123654321',
             'nama' => 'Raja Muiz',
-            'alamat' => 'Jl. Rowosari No. 10',
             'jenis_kelamin' => 'Laki-laki',
             'agama' => 'Islam',
             'pekerjaan' => 'Mahasiswa',
@@ -45,7 +42,6 @@ class WargaSeeder extends Seeder
         Warga::create([
             'no_ktp' => '987999321',
             'nama' => 'Nurul Kholifah',
-            'alamat' => 'Jl. Patriasari No. 2',
             'jenis_kelamin' => 'Perempuan',
             'agama' => 'Islam',
             'pekerjaan' => 'Ibu Rumah Tangga',
@@ -56,7 +52,6 @@ class WargaSeeder extends Seeder
         Warga::create([
             'no_ktp' => '987652356',
             'nama' => 'Marjoko',
-            'alamat' => 'Jl. Panam No. 2',
             'jenis_kelamin' => 'Laki-laki',
             'agama' => 'Islam',
             'pekerjaan' => 'Karyawan Swasta',
