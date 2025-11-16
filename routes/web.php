@@ -6,7 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\WargaController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\PenerimaBantuanController;
+use App\Http\Controllers\PendaftarController;
 
 Route::get('/', function () {
    return redirect('login');
@@ -30,6 +30,9 @@ Route::resource('users', UserController::class);
 Route::resource('warga', WargaController::class);
 
 Route::resource('programs', ProgramController::class);
+
+Route::resource('pendaftar', PendaftarController::class);
+
 
 
 // ppppppppp

@@ -44,9 +44,7 @@ class WargaController extends Controller
             'agama.required' => 'Agama wajib diisi.',
             'pekerjaan.required' => 'Pekerjaan wajib diisi.',
             'telp.required' => 'No Telp wajib diisi.',
-            'email.required' => 'Email wajib diisi.',
-            'email.email' => 'Format email tidak valid.',
-            'email.unique' => 'Email sudah digunakan.',
+            'email.required' => 'Email wajib diisi.'
         ]);
 
         // Simpan data ke database

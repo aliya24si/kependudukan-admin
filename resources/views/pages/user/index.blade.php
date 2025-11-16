@@ -26,7 +26,7 @@
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>
-                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning btn-sm">
+                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-sm">
                                 <i class="fa-solid fa-pen-to-square"></i> Edit
                             </a>
                             <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline">

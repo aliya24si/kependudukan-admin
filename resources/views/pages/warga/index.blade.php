@@ -63,7 +63,7 @@
                         <td>{{ $row->telp }}</td>
                         <td>{{ $row->email }}</td>
                         <td>
-                            <a href="{{ route('warga.edit', $row->warga_id) }}" class="btn btn-warning btn-sm text-dark">
+                            <a href="{{ route('warga.edit', $row->warga_id) }}" class="btn btn-primary btn-sm">
                                 <i class="fa-solid fa-pen-to-square"></i> Edit
                             </a>
                             <form action="{{ route('warga.destroy', $row->warga_id) }}" method="POST" style="display:inline">

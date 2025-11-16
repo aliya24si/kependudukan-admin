@@ -33,6 +33,15 @@
                 </a>
             </li>
 
+            {{-- Data Warga --}}
+            <li>
+                <a href="{{ route('warga.index') }}"
+                   class="{{ request()->is('warga') || request()->is('warga/*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-id-card" style="color:#3498db; font-size:24px;"></i>
+                    <span>Data Warga</span>
+                </a>
+            </li>
+
             {{-- Program Bantuan --}}
             <li>
                 <a href="{{ route('programs.index') }}"
@@ -42,12 +51,11 @@
                 </a>
             </li>
 
-            {{-- Data Warga --}}
             <li>
-                <a href="{{ route('warga.index') }}"
-                   class="{{ request()->is('warga') || request()->is('warga/*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-id-card" style="color:#3498db; font-size:24px;"></i>
-                    <span>Data Warga</span>
+                <a href="{{ route('pendaftar.index') }}"
+                   class="{{ request()->is('pendaftar') || request()->is('pendaftar/*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-file-signature" style="color:#e7eff5; font-size:24px;"></i>
+                    <span>Pendaftar Bantuan</span>
                 </a>
             </li>
 
@@ -59,7 +67,6 @@
                     <span>Data User</span>
                 </a>
             </li>
-
         </ul>
     </div>
 </nav>

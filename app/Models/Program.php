@@ -2,17 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Program extends Model
 {
-    use HasFactory;
-
     protected $table = 'programs';
-    protected $primaryKey = 'program_id'; // ✅ penting
-    public $incrementing = true;
-    protected $keyType = 'int';
+    protected $primaryKey = 'program_id';
 
     protected $fillable = [
         'kode',
@@ -20,6 +15,11 @@ class Program extends Model
         'tahun',
         'deskripsi',
         'anggaran',
-        'media',
+        'media'
     ];
+
+    public function pendaftar()
+    {
+        return $this->hasMany(Pendaftar::class, 'program_id');
+    }
 }

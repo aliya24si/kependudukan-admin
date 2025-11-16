@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('programs', function (Blueprint $table) {
@@ -18,17 +15,13 @@ return new class extends Migration
             $table->integer('tahun');
             $table->text('deskripsi')->nullable();
             $table->decimal('anggaran', 15, 2);
-            $table->string('media')->nullable(); // dokumen atau gambar
+            $table->string('media')->nullable();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('programs');
     }
 };
-
