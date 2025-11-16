@@ -20,7 +20,7 @@ class PendaftarSeeder extends Seeder
             'email'         => 'budi@gmail.com',
         ]);
 
-        $Program = Program::create([
+        $program = Program::create([
             'kode'         => 'PB01',
             'nama_program' => 'Bantuan Sembako',
             'tahun'        => 2024,
