@@ -1,6 +1,8 @@
 <?php
 namespace Database\Seeders;
 
+use App\Models\Warga;
+use App\Models\Program;
 use App\Models\Pendaftar;
 use Illuminate\Database\Seeder;
 
