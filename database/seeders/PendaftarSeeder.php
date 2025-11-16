@@ -10,7 +10,7 @@ class PendaftarSeeder extends Seeder
 {
     public function run(): void
     {
-        Warga::create([
+        $warga = Warga::create([
             'no_ktp'        => '123456789',
             'nama'          => 'Budi Santoso',
             'jenis_kelamin' => 'Laki-laki',
@@ -20,7 +20,7 @@ class PendaftarSeeder extends Seeder
             'email'         => 'budi@gmail.com',
         ]);
 
-        Program::create([
+        $Program = Program::create([
             'kode'         => 'PB01',
             'nama_program' => 'Bantuan Sembako',
             'tahun'        => 2024,
