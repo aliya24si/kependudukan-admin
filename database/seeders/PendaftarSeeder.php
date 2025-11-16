@@ -1,47 +1,37 @@
 <?php
-
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Pendaftar;
+use Illuminate\Database\Seeder;
 
 class PendaftarSeeder extends Seeder
 {
     public function run(): void
     {
-        Pendaftar::create([
-            'warga_id' => 1,
-            'program_id' => 1,
-            'status' => 'pending',
-            'berkas' => null
+        Warga::create([
+            'no_ktp'        => '123456789',
+            'nama'          => 'Budi Santoso',
+            'jenis_kelamin' => 'Laki-laki',
+            'agama'         => 'Islam',
+            'pekerjaan'     => 'Karyawan Swasta',
+            'telp'          => '081234567890',
+            'email'         => 'budi@gmail.com',
+        ]);
+
+        Program::create([
+            'kode'         => 'PB01',
+            'nama_program' => 'Bantuan Sembako',
+            'tahun'        => 2024,
+            'deskripsi'    => 'Program bantuan paket sembako untuk warga miskin',
+            'anggaran'     => 50000000,
+            'media'        => null,
         ]);
 
         Pendaftar::create([
-            'warga_id' => 2,
-            'program_id' => 2,
-            'status' => 'diterima',
-            'berkas' => null
-        ]);
-
-        Pendaftar::create([
-            'warga_id' => 3,
-            'program_id' => 2,
-            'status' => 'diterima',
-            'berkas' => null
-        ]);
-
-        Pendaftar::create([
-            'warga_id' => 4,
-            'program_id' => 3,
-            'status' => 'ditolak',
-            'berkas' => null
-        ]);
-
-        Pendaftar::create([
-            'warga_id' => 5,
-            'program_id' => 3,
-            'status' => 'pending',
-            'berkas' => null
+            'warga_id'   => $warga->warga_id,
+            'program_id' => $program->program_id,
+            'status'     => 'pending',
+            'berkas'     => null,
         ]);
     }
 }
