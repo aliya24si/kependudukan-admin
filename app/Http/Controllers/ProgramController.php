@@ -1,19 +1,39 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Program;
+use Illuminate\Http\Request;
 
 class ProgramController extends Controller
 {
     /**
      * Tampilkan semua data program
      */
-    public function index()
+    public function index(Request $request)
     {
-        $programs = Program::orderBy('tahun', 'desc')->get();
-        return view('pages.program.index', compact('programs'));
+        $query = Program::query();
+
+        // --- SEARCH (kode, nama program, tahun) ---
+        if ($request->search) {
+            $query->where(function ($q) use ($request) {
+                $q->where('kode', 'like', '%' . $request->search . '%')
+                    ->orWhere('nama_program', 'like', '%' . $request->search . '%')
+                    ->orWhere('tahun', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        // --- FILTER BERDASARKAN TAHUN ---
+        if ($request->tahun) {
+            $query->where('tahun', $request->tahun);
+        }
+
+        // Pagination (10 per halaman)
+        $programs = $query->orderBy('tahun', 'desc')->paginate(10);
+
+        // Untuk dropdown filter tahun
+        $tahun_list = Program::select('tahun')->distinct()->orderBy('tahun', 'desc')->get();
+
+        return view('pages.program.index', compact('programs', 'tahun_list'));
     }
 
     /**

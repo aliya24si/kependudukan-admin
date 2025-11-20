@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\User;
@@ -11,9 +10,21 @@ class UserController extends Controller
     /**
      * TAMPILKAN HALAMAN INDEX (daftar user)
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
+        $query = User::query();
+
+        // --- SEARCH ---
+        if ($request->search) {
+            $query->where(function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%')
+                    ->orWhere('email', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        // --- PAGINATION ---
+        $users = $query->paginate(10);
+
         return view('pages.user.index', compact('users'));
     }
 
@@ -64,7 +75,7 @@ class UserController extends Controller
             'password' => 'nullable|min:6|confirmed',
         ]);
 
-        $user->name = $validated['name'];
+        $user->name  = $validated['name'];
         $user->email = $validated['email'];
 
         if ($request->filled('password')) {

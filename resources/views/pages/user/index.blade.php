@@ -8,6 +8,26 @@
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
+        <form method="GET" action="{{ route('users.index') }}" class="row g-2 mb-3">
+
+            <!-- Search -->
+            <div class="col-md-4">
+                <input type="text" name="search" class="form-control" placeholder="Cari nama atau email..."
+                    value="{{ request('search') }}">
+            </div>
+
+            <!-- Tombol Cari -->
+            <div class="col-md-2">
+                <button class="btn btn-primary w-100"><i class="fa fa-search"></i> Cari</button>
+            </div>
+
+            <!-- Reset -->
+            <div class="col-md-2">
+                <a href="{{ route('users.index') }}" class="btn btn-secondary w-100">Reset</a>
+            </div>
+
+        </form>
+
         <a href="{{ route('users.create') }}" class="btn btn-primary mb-3">+ Tambah User</a>
 
         <table class="table table-bordered table-striped">
@@ -22,7 +42,7 @@
             <tbody>
                 @forelse ($users as $index => $user)
                     <tr>
-                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $users->firstItem() + $index }}</td>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>
@@ -45,5 +65,12 @@
                 @endforelse
             </tbody>
         </table>
+        <div class="d-flex flex-column align-items-center mt-1">
+            <small class="mt-2 text-muted">
+                Menampilkan {{ $users->firstItem() }} – {{ $users->lastItem() }}
+                dari total {{ $users->total() }} data
+            </small>
+        </div>
+        {{ $users->appends(request()->query())->links() }}
     </div>
 @endsection

@@ -19,6 +19,35 @@
             </div>
         @endif
 
+        <form method="GET" action="{{ route('warga.index') }}" class="row mb-3 g-2">
+            <div class="col-md-4">
+                <input type="text" name="search" class="form-control" placeholder="Cari nama / KTP / email..."
+                    value="{{ request('search') }}">
+            </div>
+
+            <div class="col-md-3">
+                <select name="jenis_kelamin" class="form-control">
+                    <option value="">-- Filter Jenis Kelamin --</option>
+                    <option value="Laki-laki" {{ request('jenis_kelamin') == 'Laki-laki' ? 'selected' : '' }}>Laki-laki
+                    </option>
+                    <option value="Perempuan" {{ request('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>Perempuan
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <button class="btn btn-primary w-100">
+                    <i class="fa fa-search"></i> Cari
+                </button>
+            </div>
+
+            <div class="col-md-2">
+                <a href="{{ route('warga.index') }}" class="btn btn-secondary w-100">
+                    Reset
+                </a>
+            </div>
+        </form>
+
         {{-- Tombol Tambah --}}
         <a href="{{ route('warga.create') }}" class="btn btn-primary mb-3">
             <i class="fa fa-plus"></i> Tambah Data Warga
@@ -46,12 +75,14 @@
                         <td>{{ $row->no_ktp }}</td>
                         <td>{{ $row->nama }}</td>
                         <td>
-                            @if($row->jenis_kelamin == 'Perempuan')
-                                <span class="badge" style="background-color:#ff69b4; color:white; padding:6px 10px; border-radius:10px;">
+                            @if ($row->jenis_kelamin == 'Perempuan')
+                                <span class="badge"
+                                    style="background-color:#ff69b4; color:white; padding:6px 10px; border-radius:10px;">
                                     {{ $row->jenis_kelamin }}
                                 </span>
                             @elseif($row->jenis_kelamin == 'Laki-laki')
-                                <span class="badge" style="background-color:#1e90ff; color:white; padding:6px 10px; border-radius:10px;">
+                                <span class="badge"
+                                    style="background-color:#1e90ff; color:white; padding:6px 10px; border-radius:10px;">
                                     {{ $row->jenis_kelamin }}
                                 </span>
                             @else
@@ -66,7 +97,8 @@
                             <a href="{{ route('warga.edit', $row->warga_id) }}" class="btn btn-primary btn-sm">
                                 <i class="fa-solid fa-pen-to-square"></i> Edit
                             </a>
-                            <form action="{{ route('warga.destroy', $row->warga_id) }}" method="POST" style="display:inline">
+                            <form action="{{ route('warga.destroy', $row->warga_id) }}" method="POST"
+                                style="display:inline">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin hapus data ini?')">
@@ -82,6 +114,13 @@
                 @endforelse
             </tbody>
         </table>
+        <div class="d-flex flex-column align-items-center mt-1">
+            <small class="mt-2 text-muted">
+                Menampilkan {{ $warga->firstItem() }} – {{ $warga->lastItem() }}
+                dari total {{ $warga->total() }} data
+            </small>
+        </div>
+        {{ $warga->appends(request()->query())->links() }}
     </div>
 
     {{-- Efek hover lembut --}}

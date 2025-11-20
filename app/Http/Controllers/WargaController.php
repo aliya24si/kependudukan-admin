@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Warga;
@@ -8,12 +7,29 @@ use Illuminate\Http\Request;
 class WargaController extends Controller
 {
     // Menampilkan halaman index dengan data warga
-    public function index()
+    public function index(Request $request)
     {
-        // Ambil semua data warga dari DB, bisa pakai pagination juga
-        $warga = Warga::all();
+        // Query awal
+        $query = Warga::query();
 
-        // Kirim data ke view
+        // Search (nama, KTP, email)
+        if ($request->search) {
+            $query->where(function ($q) use ($request) {
+                $q->where('nama', 'like', '%' . $request->search . '%')
+                    ->orWhere('no_ktp', 'like', '%' . $request->search . '%')
+                    ->orWhere('email', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        // Filter jenis kelamin
+        if ($request->jenis_kelamin) {
+            $query->where('jenis_kelamin', $request->jenis_kelamin);
+        }
+
+        // Pagination 10 data per halaman
+        $warga = $query->paginate(10);
+
+        // Kirim ke view
         return view('pages.warga.index', compact('warga'));
     }
 
@@ -28,34 +44,34 @@ class WargaController extends Controller
     {
         // Validasi data input
         $request->validate([
-            'no_ktp' => 'required|unique:warga,no_ktp', // unique di tabel warga kolom no_ktp
-            'nama' => 'required|string|max:255',
+            'no_ktp'        => 'required|unique:warga,no_ktp', // unique di tabel warga kolom no_ktp
+            'nama'          => 'required|string|max:255',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-            'agama' => 'required|string|max:100',
-            'pekerjaan' => 'required|string|max:100',
-            'telp' => 'required|string|max:20',
-            'email' => 'required|email|unique:warga,email',
+            'agama'         => 'required|string|max:100',
+            'pekerjaan'     => 'required|string|max:100',
+            'telp'          => 'required|string|max:20',
+            'email'         => 'required|email|unique:warga,email',
         ], [
-            'no_ktp.required' => 'No KTP wajib diisi.',
-            'no_ktp.unique' => 'No KTP sudah digunakan.',
-            'nama.required' => 'Nama wajib diisi.',
+            'no_ktp.required'        => 'No KTP wajib diisi.',
+            'no_ktp.unique'          => 'No KTP sudah digunakan.',
+            'nama.required'          => 'Nama wajib diisi.',
             'jenis_kelamin.required' => 'Jenis kelamin wajib dipilih.',
-            'jenis_kelamin.in' => 'Jenis kelamin tidak valid.',
-            'agama.required' => 'Agama wajib diisi.',
-            'pekerjaan.required' => 'Pekerjaan wajib diisi.',
-            'telp.required' => 'No Telp wajib diisi.',
-            'email.required' => 'Email wajib diisi.'
+            'jenis_kelamin.in'       => 'Jenis kelamin tidak valid.',
+            'agama.required'         => 'Agama wajib diisi.',
+            'pekerjaan.required'     => 'Pekerjaan wajib diisi.',
+            'telp.required'          => 'No Telp wajib diisi.',
+            'email.required'         => 'Email wajib diisi.',
         ]);
 
         // Simpan data ke database
         Warga::create([
-            'no_ktp' => $request->no_ktp,
-            'nama' => $request->nama,
+            'no_ktp'        => $request->no_ktp,
+            'nama'          => $request->nama,
             'jenis_kelamin' => $request->jenis_kelamin,
-            'agama' => $request->agama,
-            'pekerjaan' => $request->pekerjaan,
-            'telp' => $request->telp,
-            'email' => $request->email,
+            'agama'         => $request->agama,
+            'pekerjaan'     => $request->pekerjaan,
+            'telp'          => $request->telp,
+            'email'         => $request->email,
         ]);
 
         // Redirect ke halaman warga dengan pesan sukses
@@ -76,36 +92,36 @@ class WargaController extends Controller
 
         // Validasi data update (perhatikan pengecualian unique untuk data yang sama)
         $request->validate([
-            'no_ktp' => 'required|unique:warga,no_ktp,' . $warga->warga_id . ',warga_id',
-            'nama' => 'required|string|max:255',
+            'no_ktp'        => 'required|unique:warga,no_ktp,' . $warga->warga_id . ',warga_id',
+            'nama'          => 'required|string|max:255',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-            'agama' => 'required|string|max:100',
-            'pekerjaan' => 'required|string|max:100',
-            'telp' => 'required|string|max:20',
-            'email' => 'required|email|unique:warga,email,' . $warga->warga_id . ',warga_id',
+            'agama'         => 'required|string|max:100',
+            'pekerjaan'     => 'required|string|max:100',
+            'telp'          => 'required|string|max:20',
+            'email'         => 'required|email|unique:warga,email,' . $warga->warga_id . ',warga_id',
         ], [
-            'no_ktp.required' => 'No KTP wajib diisi.',
-            'no_ktp.unique' => 'No KTP sudah digunakan.',
-            'nama.required' => 'Nama wajib diisi.',
+            'no_ktp.required'        => 'No KTP wajib diisi.',
+            'no_ktp.unique'          => 'No KTP sudah digunakan.',
+            'nama.required'          => 'Nama wajib diisi.',
             'jenis_kelamin.required' => 'Jenis kelamin wajib dipilih.',
-            'jenis_kelamin.in' => 'Jenis kelamin tidak valid.',
-            'agama.required' => 'Agama wajib diisi.',
-            'pekerjaan.required' => 'Pekerjaan wajib diisi.',
-            'telp.required' => 'No Telp wajib diisi.',
-            'email.required' => 'Email wajib diisi.',
-            'email.email' => 'Format email tidak valid.',
-            'email.unique' => 'Email sudah digunakan.',
+            'jenis_kelamin.in'       => 'Jenis kelamin tidak valid.',
+            'agama.required'         => 'Agama wajib diisi.',
+            'pekerjaan.required'     => 'Pekerjaan wajib diisi.',
+            'telp.required'          => 'No Telp wajib diisi.',
+            'email.required'         => 'Email wajib diisi.',
+            'email.email'            => 'Format email tidak valid.',
+            'email.unique'           => 'Email sudah digunakan.',
         ]);
 
         // Update data
         $warga->update([
-            'no_ktp' => $request->no_ktp,
-            'nama' => $request->nama,
+            'no_ktp'        => $request->no_ktp,
+            'nama'          => $request->nama,
             'jenis_kelamin' => $request->jenis_kelamin,
-            'agama' => $request->agama,
-            'pekerjaan' => $request->pekerjaan,
-            'telp' => $request->telp,
-            'email' => $request->email,
+            'agama'         => $request->agama,
+            'pekerjaan'     => $request->pekerjaan,
+            'telp'          => $request->telp,
+            'email'         => $request->email,
         ]);
 
         return redirect()->route('warga.index')->with('success', 'Data warga berhasil diperbarui.');

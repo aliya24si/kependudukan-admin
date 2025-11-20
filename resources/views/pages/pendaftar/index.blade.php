@@ -8,7 +8,50 @@
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
-        <a href="{{ route('pendaftar.create') }}" class="btn btn-primary mb-3"><i class="fa fa-plus"></i> Tambah Pendaftar</a>
+        <form method="GET" action="{{ route('pendaftar.index') }}" class="row g-2 mb-3">
+
+            <!-- Search -->
+            <div class="col-md-4">
+                <input type="text" name="search" class="form-control" placeholder="Cari nama warga atau program..."
+                    value="{{ request('search') }}">
+            </div>
+
+            <!-- Filter Status -->
+            <div class="col-md-3">
+                <select name="status" class="form-control">
+                    <option value="">-- Filter Status --</option>
+                    <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                    <option value="diterima" {{ request('status') == 'diterima' ? 'selected' : '' }}>Diterima</option>
+                    <option value="ditolak" {{ request('status') == 'ditolak' ? 'selected' : '' }}>Ditolak</option>
+                </select>
+            </div>
+
+            <!-- Filter Program -->
+            <div class="col-md-3">
+                <select name="program_id" class="form-control">
+                    <option value="">-- Filter Program --</option>
+                    @foreach ($program as $p)
+                        <option value="{{ $p->program_id }}"
+                            {{ request('program_id') == $p->program_id ? 'selected' : '' }}>
+                            {{ $p->nama_program }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <!-- Tombol Cari -->
+            <div class="col-md-2">
+                <button class="btn btn-primary w-100"><i class="fa fa-search"></i> Cari</button>
+            </div>
+
+            <!-- Reset -->
+            <div class="col-md-2 mt-2">
+                <a href="{{ route('pendaftar.index') }}" class="btn btn-secondary w-100">Reset</a>
+            </div>
+        </form>
+
+        <a href="{{ route('pendaftar.create') }}" class="btn btn-primary mb-3"><i class="fa fa-plus"></i> Tambah
+            Pendaftar</a>
 
         <table class="table" style="border: 1px solid #ddd;">
             <thead style="background: #b3d7ff;">
@@ -24,7 +67,7 @@
             <tbody>
                 @forelse ($pendaftar as $index => $item)
                     <tr>
-                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $pendaftar->firstItem() + $index }}</td>
                         <td>{{ $item->warga->nama }}</td>
                         <td>{{ $item->program->nama_program }}</td>
                         <td>
@@ -72,5 +115,12 @@
                 @endforelse
             </tbody>
         </table>
+        <div class="d-flex flex-column align-items-center mt-1">
+            <small class="mt-2 text-muted">
+                Menampilkan {{ $pendaftar->firstItem() }} – {{ $pendaftar->lastItem() }}
+                dari total {{ $pendaftar->total() }} data
+            </small>
+        </div>
+        {{ $pendaftar->appends(request()->query())->links() }}
     </div>
 @endsection
