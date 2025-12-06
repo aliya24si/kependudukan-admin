@@ -30,9 +30,14 @@ Route::resource('users', UserController::class);
 Route::resource('warga', WargaController::class);
 
 Route::resource('programs', ProgramController::class);
+Route::delete('/programs/media/{media}', [ProgramController::class, 'deleteMedia'])
+    ->name('programs.media.destroy');
+
 
 Route::resource('pendaftar', PendaftarController::class);
-
+Route::delete('/pendaftar/media/{media}',
+    [PendaftarController::class, 'deleteMedia']
+)->name('pendaftar.media.destroy');
 
 
 // ppppppppp

@@ -12,8 +12,7 @@ class Pendaftar extends Model
     protected $fillable = [
         'warga_id',
         'program_id',
-        'status',
-        'berkas'
+        'status'
     ];
 
     public function warga()
@@ -24,5 +23,12 @@ class Pendaftar extends Model
     public function program()
     {
         return $this->belongsTo(Program::class, 'program_id');
+    }
+
+    // ⭐ FIX relasi media
+    public function media()
+    {
+        return $this->hasMany(Media::class, 'ref_id', 'pendaftar_id')
+                    ->where('ref_table', 'pendaftar');
     }
 }

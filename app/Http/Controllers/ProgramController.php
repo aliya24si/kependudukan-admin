@@ -1,8 +1,10 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Media;
 use App\Models\Program;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProgramController extends Controller
 {
@@ -13,7 +15,7 @@ class ProgramController extends Controller
     {
         $query = Program::query();
 
-        // --- SEARCH (kode, nama program, tahun) ---
+        // Search (kode, nama program, tahun)
         if ($request->search) {
             $query->where(function ($q) use ($request) {
                 $q->where('kode', 'like', '%' . $request->search . '%')
@@ -22,22 +24,23 @@ class ProgramController extends Controller
             });
         }
 
-        // --- FILTER BERDASARKAN TAHUN ---
+        // Filter tahun
         if ($request->tahun) {
             $query->where('tahun', $request->tahun);
         }
 
-        // Pagination (10 per halaman)
         $programs = $query->orderBy('tahun', 'desc')->paginate(10);
 
-        // Untuk dropdown filter tahun
-        $tahun_list = Program::select('tahun')->distinct()->orderBy('tahun', 'desc')->get();
+        $tahun_list = Program::select('tahun')
+            ->distinct()
+            ->orderBy('tahun', 'desc')
+            ->get();
 
         return view('pages.program.index', compact('programs', 'tahun_list'));
     }
 
     /**
-     * Tampilkan form tambah program baru
+     * Form tambah program
      */
     public function create()
     {
@@ -55,50 +58,129 @@ class ProgramController extends Controller
             'tahun'        => 'required|integer',
             'deskripsi'    => 'nullable|string',
             'anggaran'     => 'required|numeric',
-            'media'        => 'nullable|string',
+            'media.*'      => 'nullable|file|max:20480',
         ]);
 
-        Program::create($validated);
+        // HAPUS media dari validated (supaya tidak ikut ke create)
+        unset($validated['media']);
 
-        return redirect()->route('programs.index')->with('success', 'Program berhasil ditambahkan!');
+        // Simpan program
+        $program = Program::create($validated);
+
+        // Upload media (jika ada)
+        if ($request->hasFile('media')) {
+            foreach ($request->file('media') as $file) {
+                $path = $file->store('media/program', 'public');
+
+                Media::create([
+                    'ref_table' => 'programs',
+                    'ref_id'    => $program->program_id,
+                    'file_path' => $path,
+                    'file_name' => $file->getClientOriginalName(),
+                    'file_type' => $file->getMimeType(),
+                    'file_size' => $file->getSize(),
+                ]);
+            }
+        }
+
+        return redirect()
+            ->route('programs.index')
+            ->with('success', 'Program berhasil ditambahkan!');
     }
 
     /**
-     * Tampilkan form edit program
+     * Form edit program
      */
     public function edit($id)
     {
-        $program = Program::findOrFail($id);
+        // ambil program beserta medianya
+        $program = Program::with('media')->findOrFail($id);
         return view('pages.program.edit', compact('program'));
     }
 
     /**
-     * Update data program
+     * Update data program + media
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Program $program)
     {
-        $program = Program::findOrFail($id);
-
         $validated = $request->validate([
             'kode'         => 'required|max:10|unique:programs,kode,' . $program->program_id . ',program_id',
             'nama_program' => 'required|max:100',
             'tahun'        => 'required|integer',
             'deskripsi'    => 'nullable|string',
             'anggaran'     => 'required|numeric',
-            'media'        => 'nullable|string',
+            'media.*'      => 'nullable|file|max:20480',
         ]);
+
+        unset($validated['media']);
 
         $program->update($validated);
 
-        return redirect()->route('programs.index')->with('success', 'Program berhasil diperbarui!');
+        if ($request->hasFile('media')) {
+            foreach ($request->file('media') as $file) {
+
+                $filePath = $file->store('media/program', 'public');
+
+                Media::create([
+                    'ref_table' => 'programs',
+                    'ref_id'    => $program->program_id,
+                    'file_path' => $filePath,
+                    'file_name' => $file->getClientOriginalName(),
+                    'file_type' => $file->getMimeType(),
+                    'file_size' => $file->getSize(),
+                ]);
+            }
+        }
+
+        return redirect()->route('programs.index')
+            ->with('success', 'Program berhasil diperbarui.');
     }
 
     /**
-     * Hapus data program
+     * Hapus program + semua media terkait
      */
-    public function destroy($id)
+    public function destroy(Program $program)
     {
-        Program::destroy($id);
-        return redirect()->route('programs.index')->with('success', 'Program berhasil dihapus!');
+        $media = Media::where('ref_table', 'programs')
+            ->where('ref_id', $program->program_id)
+            ->get();
+
+        foreach ($media as $file) {
+            if ($file->file_path) {
+                Storage::disk('public')->delete($file->file_path);
+            }
+            $file->delete();
+        }
+
+        $program->delete();
+
+        return back()->with('success', 'Program & semua media berhasil dihapus.');
+    }
+
+    public function show($id)
+    {
+        $program = Program::findOrFail($id);
+
+        $files = Media::where('ref_table', 'programs')
+            ->where('ref_id', $program->program_id)
+            ->get();
+
+        return view('pages.program.show', compact('program', 'files'));
+    }
+
+    /**
+     * Hapus satu media (route harus mengirimkan media id)
+     */
+    public function deleteMedia(Media $media)
+    {
+        // hapus file fisik jika ada
+        if ($media->file_path) {
+            Storage::disk('public')->delete($media->file_path);
+        }
+
+        // hapus record database
+        $media->delete();
+
+        return back()->with('success', 'File berhasil dihapus');
     }
 }

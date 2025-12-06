@@ -1,20 +1,17 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
-    /**
-     * TAMPILKAN HALAMAN INDEX (daftar user)
-     */
     public function index(Request $request)
     {
         $query = User::query();
 
-        // --- SEARCH ---
         if ($request->search) {
             $query->where(function ($q) use ($request) {
                 $q->where('name', 'like', '%' . $request->search . '%')
@@ -22,77 +19,58 @@ class UserController extends Controller
             });
         }
 
-        // --- PAGINATION ---
         $users = $query->paginate(10);
 
         return view('pages.user.index', compact('users'));
     }
 
-    /**
-     * TAMPILKAN FORM TAMBAH USER
-     */
     public function create()
     {
         return view('pages.user.create');
     }
 
-    /**
-     * SIMPAN USER BARU
-     */
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|email|unique:users,email',
-            'password' => 'required|min:6|confirmed',
+            'name'            => 'required',
+            'email'           => 'required|email|unique:users',
+            'password'        => 'required|confirmed',
         ]);
 
-        User::create([
-            'name'     => $validated['name'],
-            'email'    => $validated['email'],
-            'password' => Hash::make($validated['password']),
-        ]);
+        $validated['password'] = bcrypt($validated['password']);
 
-        return redirect()->route('users.index')->with('success', 'User berhasil ditambahkan.');
+        User::create($validated);
+
+        return redirect()->route('users.index')->with('success', 'User berhasil ditambahkan');
     }
 
-    /**
-     * TAMPILKAN FORM EDIT USER
-     */
-    public function edit(User $user)
-    {
-        return view('pages.user.edit', compact('user'));
-    }
-
-    /**
-     * UPDATE DATA USER
-     */
     public function update(Request $request, User $user)
     {
         $validated = $request->validate([
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|email|unique:users,email,' . $user->id,
-            'password' => 'nullable|min:6|confirmed',
+            'name'            => 'required',
+            'email'           => 'required|email|unique:users,email,' . $user->id,
+            'password'        => 'nullable|confirmed',
         ]);
 
-        $user->name  = $validated['name'];
-        $user->email = $validated['email'];
-
-        if ($request->filled('password')) {
-            $user->password = Hash::make($request->password);
+        if ($request->password) {
+            $validated['password'] = bcrypt($validated['password']);
+        } else {
+            unset($validated['password']);
         }
 
-        $user->save();
+        $user->update($validated);
 
-        return redirect()->route('users.index')->with('success', 'Data user berhasil diperbarui.');
+        return redirect()->route('users.index')->with('success', 'User berhasil diubah');
     }
 
-    /**
-     * HAPUS USER
-     */
     public function destroy(User $user)
     {
+        if ($user->profile_picture) {
+            Storage::disk('public')->delete($user->profile_picture);
+        }
+
         $user->delete();
-        return redirect()->route('users.index')->with('success', 'User berhasil dihapus.');
+
+        return redirect()->route('users.index')->with('success', 'User berhasil dihapus');
     }
 }

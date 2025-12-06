@@ -10,7 +10,7 @@
         </a>
 
         {{-- Form Edit --}}
-        <form action="{{ route('programs.update', $program->program_id) }}" method="POST">
+        <form action="{{ route('programs.update', $program->program_id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -43,11 +43,29 @@
                 <textarea name="deskripsi" class="form-control" rows="3">{{ old('deskripsi', $program->deskripsi) }}</textarea>
             </div>
 
+            {{-- Upload Media Baru --}}
             <div class="mb-3">
-                <label>Media</label>
-                <input type="text" name="media" class="form-control"
-                       value="{{ old('media', $program->media) }}">
+                <label>Tambah Dokumen / Foto Baru (opsional)</label>
+                <input type="file" name="media[]" class="form-control" multiple>
+                <small class="text-muted">Bisa upload lebih dari satu file</small>
             </div>
+
+            {{-- Preview Media Lama --}}
+            @if(isset($program) && $program->media && $program->media->count() > 0)
+                <div class="mb-3">
+                    <label>Media yang Sudah Ada:</label>
+                    <div class="d-flex gap-3 flex-wrap">
+                        @foreach ($program->media as $m)
+                            <div class="border p-2 rounded" style="width: 120px;">
+                                <img src="{{ asset('storage/' . $m->file_path) }}" class="img-fluid rounded">
+                                <p class="small text-muted mt-1" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                    {{ $m->file_name }}
+                                </p>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
 
             <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
         </form>

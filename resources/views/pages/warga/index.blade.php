@@ -77,12 +77,12 @@
                         <td>
                             @if ($row->jenis_kelamin == 'Perempuan')
                                 <span class="badge"
-                                    style="background-color:#ff69b4; color:white; padding:6px 10px; border-radius:10px;">
+                                    style="background-color:#ed7bc2; color:white; padding:6px 10px; border-radius:10px;">
                                     {{ $row->jenis_kelamin }}
                                 </span>
                             @elseif($row->jenis_kelamin == 'Laki-laki')
                                 <span class="badge"
-                                    style="background-color:#1e90ff; color:white; padding:6px 10px; border-radius:10px;">
+                                    style="background-color:#6eadec; color:white; padding:6px 10px; border-radius:10px;">
                                     {{ $row->jenis_kelamin }}
                                 </span>
                             @else

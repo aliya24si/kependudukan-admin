@@ -68,11 +68,15 @@
                         <td>{{ $program->tahun }}</td>
                         <td>Rp {{ number_format($program->anggaran, 0, ',', '.') }}</td>
                         <td>
+                            <!-- Detail -->
+                            <a href="{{ route('programs.show', $program->program_id) }}" class="btn btn-info btn-sm">
+                                <i class="fa-solid fa-circle-info"></i> Detail
+                            </a>
+
                             <!-- Edit -->
                             <a href="{{ route('programs.edit', $program->program_id) }}" class="btn btn-primary btn-sm">
                                 <i class="fa-solid fa-pen-to-square"></i> Edit
                             </a>
-
 
                             <!-- Delete -->
                             <form action="{{ route('programs.destroy', $program->program_id) }}" method="POST"
