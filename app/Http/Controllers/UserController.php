@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\User;
@@ -19,6 +18,10 @@ class UserController extends Controller
             });
         }
 
+        if ($request->role) {
+            $query->where('role', $request->role);
+        }
+
         $users = $query->paginate(10);
 
         return view('pages.user.index', compact('users'));
@@ -32,9 +35,10 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name'            => 'required',
-            'email'           => 'required|email|unique:users',
-            'password'        => 'required|confirmed',
+            'name'     => 'required',
+            'email'    => 'required|email|unique:users',
+            'role'     => 'required|in:admin,staff',
+            'password' => 'required|confirmed',
         ]);
 
         $validated['password'] = bcrypt($validated['password']);
@@ -47,9 +51,10 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $validated = $request->validate([
-            'name'            => 'required',
-            'email'           => 'required|email|unique:users,email,' . $user->id,
-            'password'        => 'nullable|confirmed',
+            'name'     => 'required',
+            'email'    => 'required|email|unique:users,email,' . $user->id,
+            'role'     => 'required|in:admin,staff',
+            'password' => 'nullable|confirmed',
         ]);
 
         if ($request->password) {
