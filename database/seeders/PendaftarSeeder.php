@@ -1,4 +1,5 @@
 <?php
+
 namespace Database\Seeders;
 
 use App\Models\Pendaftar;
@@ -12,6 +13,18 @@ class PendaftarSeeder extends Seeder
     public function run(): void
     {
         $faker = Faker::create('id_ID');
+
+        // Daftar nama program yang akan digunakan secara acak
+        $programNames = [
+            'Bantuan Langsung Tunai Desa',
+            'Program Keluarga Harapan',
+            'Bantuan Pangan Non Tunai',
+            'Bantuan Modal UMKM',
+            'Beasiswa Pendidikan Warga Tidak Mampu',
+            'Bantuan Untuk Orang Kurang Mampu',
+            'Bantuan Panti Asuhan',
+            'Bantuan Bencana Alam',
+        ];
 
         for ($i = 1; $i <= 100; $i++) {
 
@@ -27,22 +40,21 @@ class PendaftarSeeder extends Seeder
                 'email'         => $faker->unique()->safeEmail(),
             ]);
 
-            // Insert Program
+            // Insert Program dengan nama program acak
             $program = Program::create([
                 'kode'         => 'PB' . str_pad($i, 3, '0', STR_PAD_LEFT),
-                'nama_program' => "Program Batuan #$i",
+                'nama_program' => $programNames[array_rand($programNames)], // Nama program acak
                 'tahun'        => $faker->numberBetween(2020, 2025),
                 'deskripsi'    => $faker->sentence(),
                 'anggaran'     => $faker->numberBetween(1000000, 50000000),
                 'media'        => null,
             ]);
 
-            // Insert Pendaftar (relasi)
+            // Insert Pendaftar (relasi Warga dan Program)
             Pendaftar::create([
                 'warga_id'   => $warga->warga_id,     // sesuaikan jika primary key beda
                 'program_id' => $program->program_id, // sesuaikan jika primary key beda
                 'status'     => $faker->randomElement(['pending', 'diterima', 'ditolak']),
-                'berkas'     => null,
             ]);
         }
     }
