@@ -22,6 +22,7 @@ class User extends Authenticatable
         'email',
         'role',
         'password',
+        'profile_picture',
     ];
 
     /**
@@ -45,5 +46,14 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function getPhotoUrl()
+    {
+        if (!$this->profile_picture) {
+            return asset('images/no-photo.png'); // default jika belum upload
+        }
+
+        return asset('storage/' . $this->profile_picture);
     }
 }

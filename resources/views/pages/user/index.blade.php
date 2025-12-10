@@ -47,7 +47,9 @@
 
         </form>
 
-        <a href="{{ route('users.create') }}" class="btn btn-primary mb-3"><i class="fa fa-plus me-1"></i> Tambah User</a>
+        <a href="{{ route('users.create') }}" class="btn btn-primary mb-3">
+            <i class="fa fa-plus me-1"></i> Tambah User
+        </a>
 
         {{-- Tabel user --}}
         <div class="table-responsive">
@@ -55,6 +57,7 @@
                 <thead class="table-primary">
                     <tr>
                         <th>No</th>
+                        <th>Foto</th>
                         <th>Nama</th>
                         <th>Email</th>
                         <th>Role</th>
@@ -65,13 +68,34 @@
                     @forelse ($users as $index => $user)
                         <tr>
                             <td>{{ $users->firstItem() + $index }}</td>
+
+                            {{-- FOTO PROFIL BULAT --}}
+                            <td>
+                                <img src="{{ $user->profile_picture
+                                    ? (Str::startsWith($user->profile_picture, 'assets-admin')
+                                        ? asset($user->profile_picture)
+                                        : asset('storage/' . $user->profile_picture))
+                                    : asset('assets-admin/images/layout_img/placeholder.jpeg') }}"
+                                    style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+                            </td>
+
+
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ ucfirst($user->role ?? '-') }}</td>
+
                             <td>
+                                {{-- Tombol Detail --}}
+                                <a href="{{ route('users.show', $user->id) }}" class="btn btn-info btn-sm me-1">
+                                    <i class="fa-solid fa-eye"></i> Detail
+                                </a>
+
+                                {{-- Tombol Edit --}}
                                 <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning btn-sm me-1">
                                     <i class="fa-solid fa-pen-to-square"></i> Edit
                                 </a>
+
+                                {{-- Tombol Hapus --}}
                                 <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline"
                                     onsubmit="return confirm('Yakin hapus user ini?')">
                                     @csrf
@@ -84,7 +108,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="text-center text-muted">Belum ada data user</td>
+                            <td colspan="6" class="text-center text-muted">Belum ada data user</td>
                         </tr>
                     @endforelse
                 </tbody>

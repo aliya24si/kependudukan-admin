@@ -1,11 +1,14 @@
 <?php
 
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\PendaftarController;
-use App\Http\Controllers\ProgramController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\WargaController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\WargaController;
+use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\PendaftarController;
+use App\Http\Controllers\PenerimaBantuanController;
+use App\Http\Controllers\RiwayatPenyaluranController;
+use App\Http\Controllers\VerifikasiLapanganController;
 
 Route::get('/', function () {
     return redirect('login');
@@ -41,3 +44,13 @@ Route::delete('/pendaftar/media/{media}',
 )->name('pendaftar.media.destroy');
 
 // ppppppppp
+
+Route::resource('verifikasi', VerifikasiLapanganController::class);
+Route::delete('/verifikasi/media/{media}', [VerifikasiLapanganController::class, 'deleteMedia'])->name('verifikasi.media.delete');
+
+Route::resource('penerima', PenerimaBantuanController::class);
+
+Route::resource('riwayat', RiwayatPenyaluranController::class);
+Route::delete('riwayat/media/{media}', [RiwayatPenyaluranController::class, 'deleteMedia'])
+    ->name('riwayat.media.delete');
+

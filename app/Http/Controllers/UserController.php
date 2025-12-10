@@ -35,11 +35,22 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name'     => 'required',
-            'email'    => 'required|email|unique:users',
-            'role'     => 'required|in:admin,staff',
-            'password' => 'required|confirmed',
+            'name'            => 'required',
+            'email'           => 'required|email|unique:users',
+            'role'            => 'required|in:admin,staff',
+            'password'        => 'required|confirmed',
+            'profile_picture' => 'nullable|image|max:2048',
         ]);
+
+        // ===== FOTO DEFAULT JIKA USER TIDAK UPLOAD =====
+        $placeholder = 'assets-admin/images/layout_img/placeholder.jpeg';
+
+        if ($request->hasFile('profile_picture')) {
+            $validated['profile_picture'] = $request->file('profile_picture')
+                ->store('profile', 'public');
+        } else {
+            $validated['profile_picture'] = $placeholder;
+        }
 
         $validated['password'] = bcrypt($validated['password']);
 
@@ -48,19 +59,47 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', 'User berhasil ditambahkan');
     }
 
+    public function show(User $user)
+    {
+        return view('pages.user.show', compact('user'));
+    }
+
+    public function edit(User $user)
+    {
+        return view('pages.user.edit', compact('user'));
+    }
+
     public function update(Request $request, User $user)
     {
         $validated = $request->validate([
-            'name'     => 'required',
-            'email'    => 'required|email|unique:users,email,' . $user->id,
-            'role'     => 'required|in:admin,staff',
-            'password' => 'nullable|confirmed',
+            'name'            => 'required',
+            'email'           => 'required|email|unique:users,email,' . $user->id,
+            'role'            => 'required|in:admin,staff',
+            'password'        => 'nullable|confirmed',
+            'profile_picture' => 'nullable|image|max:2048',
         ]);
 
         if ($request->password) {
-            $validated['password'] = bcrypt($validated['password']);
+            $validated['password'] = bcrypt($request->password);
         } else {
             unset($validated['password']);
+        }
+
+        // ===== FOTO DEFAULT =====
+        $placeholder = 'assets-admin\images\layout_img\placeholder.jpeg';
+
+        if ($request->hasFile('profile_picture')) {
+            // delete foto lama kalo foto lama bukan placeholder
+            if ($user->profile_picture && $user->profile_picture !== $placeholder) {
+                Storage::disk('public')->delete($user->profile_picture);
+            }
+
+            $validated['profile_picture'] = $request->file('profile_picture')
+                ->store('profile', 'public');
+
+        } elseif (! $user->profile_picture) {
+            // jika sebelumnya tidak ada foto (null)
+            $validated['profile_picture'] = $placeholder;
         }
 
         $user->update($validated);
@@ -70,7 +109,10 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        if ($user->profile_picture) {
+        $placeholder = 'assets-admin\images\layout_img\placeholder.jpeg';
+
+        // jika bukan placeholder maka hapus
+        if ($user->profile_picture && $user->profile_picture !== $placeholder) {
             Storage::disk('public')->delete($user->profile_picture);
         }
 

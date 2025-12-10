@@ -2,48 +2,72 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PenerimaBantuan;
+use App\Models\Program;
+use App\Models\Warga;
 use Illuminate\Http\Request;
 
 class PenerimaBantuanController extends Controller
 {
-    // Menampilkan daftar data dari session
-    public function index(Request $request)
+    public function index()
     {
-        // Ambil data dari session, default array kosong
-        $data = $request->session()->get('penerima_bantuan', []);
-        return view('penerima.index', compact('data'));
+        $penerima = PenerimaBantuan::with(['program', 'warga'])->paginate(10);
+
+        return view('pages.penerima.index', compact('penerima'));
     }
 
-    // Menampilkan form input
     public function create()
     {
-        return view('penerima.create');
+        $program = Program::orderBy('nama_program')->get();
+        $warga   = Warga::orderBy('nama')->get();
+
+        return view('pages.penerima.create', compact('program', 'warga'));
     }
 
-    // Menyimpan data ke session
     public function store(Request $request)
     {
         $request->validate([
             'program_id' => 'required',
             'warga_id'   => 'required',
+            'keterangan' => 'nullable'
         ]);
 
-        // Ambil data lama
-        $data = $request->session()->get('penerima_bantuan', []);
+        PenerimaBantuan::create($request->all());
 
-        // Buat ID otomatis
-        $nextId = count($data) + 1;
+        return redirect()->route('penerima.index')
+            ->with('success', 'Penerima bantuan berhasil ditambahkan.');
+    }
 
-        // Masukkan data baru ke array
-        $data[] = [
-            'penerima_id' => $nextId,
-            'program_id'  => $request->program_id,
-            'warga_id'    => $request->warga_id
-        ];
+    public function edit($id)
+    {
+        $penerima = PenerimaBantuan::findOrFail($id);
+        $program = Program::orderBy('nama_program')->get();
+        $warga   = Warga::orderBy('nama')->get();
 
-        // Simpan kembali ke session
-        $request->session()->put('penerima_bantuan', $data);
+        return view('pages.penerima.edit', compact('penerima', 'program', 'warga'));
+    }
 
-        return redirect()->route('penerima.index')->with('success', 'Data berhasil disimpan!');
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'program_id' => 'required',
+            'warga_id'   => 'required',
+            'keterangan' => 'nullable'
+        ]);
+
+        $penerima = PenerimaBantuan::findOrFail($id);
+        $penerima->update($request->all());
+
+        return redirect()->route('penerima.index')
+            ->with('success', 'Data penerima berhasil diperbarui.');
+    }
+
+    public function destroy($id)
+    {
+        $penerima = PenerimaBantuan::findOrFail($id);
+        $penerima->delete();
+
+        return redirect()->route('penerima.index')
+            ->with('success', 'Data penerima berhasil dihapus.');
     }
 }

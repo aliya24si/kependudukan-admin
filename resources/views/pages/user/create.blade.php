@@ -1,44 +1,49 @@
 @extends('layouts.admin.app')
 
 @section('content')
-    <div class="container py-5">
-        <h3 class="mb-4">Tambah User Baru</h3>
+<div class="container py-5">
+    <h3 class="mb-4">Tambah User Baru</h3>
 
-        <a href="{{ route('users.index') }}" class="mb-3 d-inline-block">
-            <i class="fas fa-chevron-left"></i> Kembali
-        </a>
+    <a href="{{ route('users.index') }}" class="mb-3 d-inline-block">
+        <i class="fas fa-chevron-left"></i> Kembali
+    </a>
 
-        <form action="{{ route('users.store') }}" method="POST">
-            @csrf
-            <div class="mb-3">
-                <label>Nama</label>
-                <input type="text" name="name" class="form-control" value="{{ old('name') }}" required>
-            </div>
-            <div class="mb-3">
-                <label>Email</label>
-                <input type="email" name="email" class="form-control" value="{{ old('email') }}" required>
-            </div>
+    <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
 
-            <div class="mb-3">
-                <label class="form-label">Role</label>
-                <select name="role" class="form-select" required>
-                    <option value="admin" @selected(old('role', $user->role ?? '') == 'admin')>Admin</option>
-                    <option value="staff" @selected(old('role', $user->role ?? '') == 'staff')>Staff</option>
-                </select>
-                @error('role')
-                    <small class="text-danger">{{ $message }}</small>
-                @enderror
-            </div>
+        <div class="mb-3">
+            <label>Foto Profil</label>
+            <input type="file" name="profile_picture" class="form-control">
+        </div>
 
-            <div class="mb-3">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label>Konfirmasi Password</label>
-                <input type="password" name="password_confirmation" class="form-control" required>
-            </div>
-            <button type="submit" class="btn btn-success">Simpan</button>
-        </form>
-    </div>
+        <div class="mb-3">
+            <label>Nama</label>
+            <input type="text" name="name" class="form-control" value="{{ old('name') }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label>Email</label>
+            <input type="email" name="email" class="form-control" value="{{ old('email') }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Role</label>
+            <select name="role" class="form-select" required>
+                <option value="admin">Admin</option>
+                <option value="staff">Staff</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>Password</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Konfirmasi Password</label>
+            <input type="password" name="password_confirmation" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn btn-success">Simpan</button>
+    </form>
+</div>
 @endsection

@@ -3,7 +3,8 @@
         <div class="sidebar-header">
             <div class="logo_section">
                 <a href="{{ route('dashboard') }}">
-                    <img class="logo_icon img-responsive" src="{{ asset('assets-admin/images/logo/icon-login.png') }}" alt="#" />
+                    <img class="logo_icon img-responsive" src="{{ asset('assets-admin/images/logo/icon-login.png') }}"
+                        alt="#" />
                 </a>
             </div>
         </div>
@@ -11,7 +12,8 @@
             <div class="icon_setting"></div>
             <div class="user_profle_side">
                 <div class="user_img">
-                    <img class="img-responsive" src="{{ asset('assets-admin/images/layout_img/user_img.jpg') }}" alt="#" />
+                    <img class="img-responsive" src="{{ asset('assets-admin/images/layout_img/user_img.jpg') }}"
+                        alt="#" />
                 </div>
                 <div class="user_info">
                     <h6>Bantuan Sosial</h6>
@@ -26,8 +28,7 @@
 
             {{-- Dashboard --}}
             <li>
-                <a href="{{ route('dashboard') }}"
-                   class="{{ request()->is('dashboard') ? 'active' : '' }}">
+                <a href="{{ route('dashboard') }}" class="{{ request()->is('dashboard') ? 'active' : '' }}">
                     <i class="fa fa-dashboard yellow_color"></i>
                     <span>Dashboard</span>
                 </a>
@@ -36,7 +37,7 @@
             {{-- Data Warga --}}
             <li>
                 <a href="{{ route('warga.index') }}"
-                   class="{{ request()->is('warga') || request()->is('warga/*') ? 'active' : '' }}">
+                    class="{{ request()->is('warga') || request()->is('warga/*') ? 'active' : '' }}">
                     <i class="fa-solid fa-id-card" style="color:#3498db; font-size:24px;"></i>
                     <span>Data Warga</span>
                 </a>
@@ -45,7 +46,7 @@
             {{-- Program Bantuan --}}
             <li>
                 <a href="{{ route('programs.index') }}"
-                   class="{{ request()->is('programs') || request()->is('programs/*') ? 'active' : '' }}">
+                    class="{{ request()->is('programs') || request()->is('programs/*') ? 'active' : '' }}">
                     <i class="fa-solid fa-people-group" style="color:#4caf50;"></i>
                     <span>Program Bantuan</span>
                 </a>
@@ -53,16 +54,40 @@
 
             <li>
                 <a href="{{ route('pendaftar.index') }}"
-                   class="{{ request()->is('pendaftar') || request()->is('pendaftar/*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-file-signature" style="color:#e7eff5; font-size:24px;"></i>
+                    class="{{ request()->is('pendaftar') || request()->is('pendaftar/*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-file-signature" style="color:#b3b5b7; font-size:24px;"></i>
                     <span>Pendaftar Bantuan</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ route('verifikasi.index') }}"
+                    class="{{ request()->is('verifikasi-lapangan') || request()->is('verifikasi-lapangan/*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-clipboard-check" style="color:#e7eff5; font-size:24px;"></i>
+                    <span>Verifikasi Lapangan</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ route('penerima.index') }}"
+                    class="{{ request()->is('penerima') || request()->is('penerima/*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-people-carry-box" style="color:#30e3ce; font-size:24px;"></i>
+                    <span>Penerima Bantuan</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ route('riwayat.index') }}"
+                    class="{{ request()->is('riwayat') || request()->is('riwayat/*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-clock-rotate-left" style="color:#e7eff5; font-size:24px;"></i>
+                    <span>Riwayat Penyaluran</span>
                 </a>
             </li>
 
             {{-- Data User --}}
             <li>
                 <a href="{{ route('users.index') }}"
-                   class="{{ request()->is('users') || request()->is('users/*') ? 'active' : '' }}">
+                    class="{{ request()->is('users') || request()->is('users/*') ? 'active' : '' }}">
                     <i class="fa-solid fa-user-circle" style="color:#2980b9; font-size:24px;"></i>
                     <span>Data User</span>
                 </a>

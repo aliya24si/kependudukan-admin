@@ -15,10 +15,10 @@
     <div class="login-wrapper">
         <!-- Panel Kiri -->
         <div class="login-left">
-            <div class="logo mb-4">
-                <img src="{{ asset('assets-admin/images/logo/icon-logo.png') }}" alt="Logo" style="width: 200px;">
-            </div>
-            <h1>Hey, Hello!</h1>
+            {{-- <div class="logo mb-4">
+                <img src="{{ asset('assets-admin/images/logo/bina-desa.png') }}" alt="Logo" style="width: 200px;">
+            </div> --}}
+            <h1>Welcome!</h1>
             <p class="subtitle">Selamat datang di Sistem Informasi Bantuan Sosial</p>
             <p class="desc">Platform resmi untuk mengelola dan memantau penyaluran bantuan sosial pemerintah.
                 Silakan masuk menggunakan akun yang telah terdaftar.</p>
@@ -27,7 +27,10 @@
         <!-- Panel Kanan -->
         <div class="login-right">
             <div class="login-card">
-                <h2>Welcome Back</h2>
+
+                <!-- LOGO DI ATAS TULISAN -->
+                <img src="{{ asset('assets-admin/images/logo/bina-desa.png') }}" style="width: 310px; display:block; margin:0 auto;" alt="Logo" class="login-logo">
+
                 <p class="small-text">Masuk untuk melanjutkan ke sistem Anda</p>
 
                 <!-- Notifikasi logout sukses -->
@@ -46,7 +49,6 @@
                     </div>
                 @endif
 
-                <!-- Form Login -->
                 <form action="{{ route('login.store') }}" method="POST">
                     @csrf
                     <div class="form-group">
@@ -64,11 +66,10 @@
                     </div>
 
                     <button type="submit" class="btn-login">Login</button>
-
-
                 </form>
             </div>
         </div>
+
     </div>
 </body>
 

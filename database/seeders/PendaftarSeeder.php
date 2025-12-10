@@ -14,7 +14,7 @@ class PendaftarSeeder extends Seeder
     {
         $faker = Faker::create('id_ID');
 
-        // Daftar nama program yang akan digunakan secara acak
+        // 1. Daftar nama program (8 data)
         $programNames = [
             'Bantuan Langsung Tunai Desa',
             'Program Keluarga Harapan',
@@ -26,9 +26,22 @@ class PendaftarSeeder extends Seeder
             'Bantuan Bencana Alam',
         ];
 
+        // 2. Insert 8 program (bukan 100)
+        $programs = [];
+        foreach ($programNames as $index => $name) {
+            $programs[] = Program::create([
+                'kode'         => 'PB' . str_pad($index + 1, 3, '0', STR_PAD_LEFT),
+                'nama_program' => $name,
+                'tahun'        => $faker->numberBetween(2020, 2025),
+                'deskripsi'    => $faker->sentence(),
+                'anggaran'     => $faker->numberBetween(1000000, 50000000),
+                'media'        => null,
+            ]);
+        }
+
+        // 3. Insert 100 Warga + Pendaftar
         for ($i = 1; $i <= 100; $i++) {
 
-            // Insert Warga
             $warga = Warga::create([
                 'no_ktp'        => $faker->numerify('3276##########'),
                 'nama'          => $faker->name(),
@@ -40,20 +53,12 @@ class PendaftarSeeder extends Seeder
                 'email'         => $faker->unique()->safeEmail(),
             ]);
 
-            // Insert Program dengan nama program acak
-            $program = Program::create([
-                'kode'         => 'PB' . str_pad($i, 3, '0', STR_PAD_LEFT),
-                'nama_program' => $programNames[array_rand($programNames)], // Nama program acak
-                'tahun'        => $faker->numberBetween(2020, 2025),
-                'deskripsi'    => $faker->sentence(),
-                'anggaran'     => $faker->numberBetween(1000000, 50000000),
-                'media'        => null,
-            ]);
+            // Pilih program secara acak dari 8 data yang sudah dibuat
+            $randomProgram = $programs[array_rand($programs)];
 
-            // Insert Pendaftar (relasi Warga dan Program)
             Pendaftar::create([
-                'warga_id'   => $warga->warga_id,     // sesuaikan jika primary key beda
-                'program_id' => $program->program_id, // sesuaikan jika primary key beda
+                'warga_id'   => $warga->warga_id,
+                'program_id' => $randomProgram->program_id,
                 'status'     => $faker->randomElement(['pending', 'diterima', 'ditolak']),
             ]);
         }
