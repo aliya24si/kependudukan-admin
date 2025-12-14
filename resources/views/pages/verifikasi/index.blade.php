@@ -74,12 +74,12 @@
                     <td>
                         <a href="{{ route('verifikasi.show', $ver->verifikasi_id) }}"
                            class="btn btn-info btn-sm mb-1">
-                            <i class="fa fa-eye"></i> Detail
+                            <i class="fa fa-eye"></i>
                         </a>
 
                         <a href="{{ route('verifikasi.edit', $ver->verifikasi_id) }}"
                            class="btn btn-primary btn-sm mb-1">
-                            <i class="fa fa-edit"></i> Edit
+                            <i class="fa fa-edit"></i>
                         </a>
 
                         <form action="{{ route('verifikasi.destroy', $ver->verifikasi_id) }}"
@@ -88,7 +88,7 @@
                             @csrf
                             @method('DELETE')
                             <button class="btn btn-danger btn-sm">
-                                <i class="fa fa-trash"></i> Hapus
+                                <i class="fa fa-trash"></i> 
                             </button>
                         </form>
                     </td>

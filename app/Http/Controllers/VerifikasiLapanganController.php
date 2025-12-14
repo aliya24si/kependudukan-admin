@@ -15,7 +15,7 @@ class VerifikasiLapanganController extends Controller
         $query = VerifikasiLapangan::with(['pendaftar.warga', 'media']);
 
         if ($request->search) {
-            $query->whereHas('pendaftar.warga', function($q) use ($request) {
+            $query->whereHas('pendaftar.warga', function ($q) use ($request) {
                 $q->where('nama', 'like', '%' . $request->search . '%');
             });
         }
@@ -43,9 +43,13 @@ class VerifikasiLapanganController extends Controller
             'media.*'      => 'nullable|image|max:4096',
         ]);
 
-        $ver = VerifikasiLapangan::create($request->only(
-            'pendaftar_id', 'petugas', 'tanggal', 'catatan', 'skor'
-        ));
+        $ver = VerifikasiLapangan::create([
+            'pendaftar_id' => $request->pendaftar_id,
+            'petugas' => $request->petugas,
+            'tanggal' => date('Y-m-d', strtotime($request->tanggal)),
+            'catatan' => $request->catatan,
+            'skor' => $request->skor,
+        ]);
 
         // Upload foto
         if ($request->hasFile('media')) {
@@ -65,7 +69,7 @@ class VerifikasiLapanganController extends Controller
         }
 
         return redirect()->route('verifikasi.index')
-                         ->with('success', 'Verifikasi berhasil ditambahkan');
+            ->with('success', 'Verifikasi berhasil ditambahkan');
     }
 
     public function show($id)
@@ -88,16 +92,24 @@ class VerifikasiLapanganController extends Controller
         $request->validate([
             'pendaftar_id' => 'required',
             'petugas'      => 'required',
-            'tanggal'      => 'required|date',
+            'tanggal'      => 'required',
             'catatan'      => 'nullable',
             'skor'         => 'nullable|integer',
             'media.*'      => 'nullable|image|max:4096',
         ]);
 
         $ver = VerifikasiLapangan::findOrFail($id);
-        $ver->update($request->only(
-            'pendaftar_id', 'petugas', 'tanggal', 'catatan', 'skor'
-        ));
+
+        // Format tanggal agar pasti valid
+        $tanggal = date('Y-m-d', strtotime($request->tanggal));
+
+        $ver->update([
+            'pendaftar_id' => $request->pendaftar_id,
+            'petugas'      => $request->petugas,
+            'tanggal'      => $tanggal,
+            'catatan'      => $request->catatan,
+            'skor'         => $request->skor,
+        ]);
 
         // Upload foto tambahan
         if ($request->hasFile('media')) {
@@ -117,14 +129,14 @@ class VerifikasiLapanganController extends Controller
         }
 
         return redirect()->route('verifikasi.index')
-                         ->with('success', 'Verifikasi berhasil diperbarui');
+            ->with('success', 'Verifikasi berhasil diperbarui');
     }
 
     public function destroy($id)
     {
         $ver = VerifikasiLapangan::with('media')->findOrFail($id);
 
-        // hapus file media
+        // Hapus semua media fisik + DB
         foreach ($ver->media as $m) {
             Storage::disk('public')->delete($m->file_path);
             $m->delete();
@@ -133,7 +145,7 @@ class VerifikasiLapanganController extends Controller
         $ver->delete();
 
         return redirect()->route('verifikasi.index')
-                         ->with('success', 'Verifikasi berhasil dihapus');
+            ->with('success', 'Verifikasi berhasil dihapus');
     }
 
     public function deleteMedia(Media $media)

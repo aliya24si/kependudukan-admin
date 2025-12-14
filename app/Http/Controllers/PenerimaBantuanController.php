@@ -9,11 +9,26 @@ use Illuminate\Http\Request;
 
 class PenerimaBantuanController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $penerima = PenerimaBantuan::with(['program', 'warga'])->paginate(10);
+        $query = PenerimaBantuan::with(['program', 'warga']);
 
-        return view('pages.penerima.index', compact('penerima'));
+        // 🔍 SEARCH NAMA WARGA
+        if ($request->search) {
+            $query->whereHas('warga', function ($q) use ($request) {
+                $q->where('nama', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        // 🔎 FILTER PROGRAM
+        if ($request->program_id) {
+            $query->where('program_id', $request->program_id);
+        }
+
+        $penerima = $query->paginate(10)->withQueryString();
+        $program  = Program::orderBy('nama_program')->get();
+
+        return view('pages.penerima.index', compact('penerima', 'program'));
     }
 
     public function create()
@@ -41,8 +56,8 @@ class PenerimaBantuanController extends Controller
     public function edit($id)
     {
         $penerima = PenerimaBantuan::findOrFail($id);
-        $program = Program::orderBy('nama_program')->get();
-        $warga   = Warga::orderBy('nama')->get();
+        $program  = Program::orderBy('nama_program')->get();
+        $warga    = Warga::orderBy('nama')->get();
 
         return view('pages.penerima.edit', compact('penerima', 'program', 'warga'));
     }

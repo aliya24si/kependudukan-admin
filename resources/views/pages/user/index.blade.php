@@ -87,12 +87,12 @@
                             <td>
                                 {{-- Tombol Detail --}}
                                 <a href="{{ route('users.show', $user->id) }}" class="btn btn-info btn-sm me-1">
-                                    <i class="fa-solid fa-eye"></i> Detail
+                                    <i class="fa-solid fa-eye"></i>
                                 </a>
 
                                 {{-- Tombol Edit --}}
                                 <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning btn-sm me-1">
-                                    <i class="fa-solid fa-pen-to-square"></i> Edit
+                                    <i class="fa-solid fa-pen-to-square"></i>
                                 </a>
 
                                 {{-- Tombol Hapus --}}
@@ -101,7 +101,7 @@
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger btn-sm">
-                                        <i class="fa-solid fa-trash-can"></i> Hapus
+                                        <i class="fa-solid fa-trash-can"></i> 
                                     </button>
                                 </form>
                             </td>

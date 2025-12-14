@@ -33,4 +33,10 @@ class Media extends Model
             ->where('ref_table', 'pendaftar');
     }
 
+    public function penyaluran()
+    {
+        return $this->belongsTo(RiwayatPenyaluran::class, 'ref_id', 'penyaluran_id')
+            ->where('ref_table', 'penyaluran_bantuan');
+    }
+
 }

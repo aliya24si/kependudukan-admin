@@ -1,97 +1,86 @@
-<nav id="sidebar">
+<nav id="sidebar" class="sidebar">
     <div class="sidebar_blog_1">
-        <div class="sidebar-header">
-            <div class="logo_section">
-                <a href="{{ route('dashboard') }}">
-                    <img class="logo_icon img-responsive" src="{{ asset('assets-admin/images/logo/icon-login.png') }}"
-                        alt="#" />
-                </a>
-            </div>
-        </div>
         <div class="sidebar_user_info">
-            <div class="icon_setting"></div>
             <div class="user_profle_side">
+
+                @php
+                    $user = Auth::user();
+                    $photo =
+                        $user && $user->profile_picture
+                            ? asset('storage/' . $user->profile_picture)
+                            : asset('assets-admin/images/layout_img/placeholder.jpeg');
+                @endphp
+
                 <div class="user_img">
-                    <img class="img-responsive" src="{{ asset('assets-admin/images/layout_img/user_img.jpg') }}"
-                        alt="#" />
+                    <img src="{{ $photo }}" class="rounded-circle"
+                        style="width:80px; height:80px; object-fit:cover;">
                 </div>
+
                 <div class="user_info">
-                    <h6>Bantuan Sosial</h6>
-                    <p>Pemerintah</p>
+                    <h6>{{ $user->name ?? 'User' }}</h6>
+                    <p>• {{ $user->role ?? '-' }}</p>
                 </div>
+
             </div>
         </div>
     </div>
 
+
     <div class="sidebar_blog_2">
         <ul class="list-unstyled components">
 
-            {{-- Dashboard --}}
-            <li>
-                <a href="{{ route('dashboard') }}" class="{{ request()->is('dashboard') ? 'active' : '' }}">
-                    <i class="fa fa-dashboard yellow_color"></i>
+            <li class="{{ request()->is('dashboard') ? 'active' : '' }}">
+                <a href="{{ route('dashboard') }}" title="Dashboard"> <i class="fa fa-dashboard"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
 
-            {{-- Data Warga --}}
-            <li>
-                <a href="{{ route('warga.index') }}"
-                    class="{{ request()->is('warga') || request()->is('warga/*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-id-card" style="color:#3498db; font-size:24px;"></i>
+            <li class="{{ request()->is('warga*') ? 'active' : '' }}">
+                <a href="{{ route('warga.index') }}" title="Data Warga"> <i class="fa fa-id-card"></i>
                     <span>Data Warga</span>
                 </a>
             </li>
 
-            {{-- Program Bantuan --}}
-            <li>
-                <a href="{{ route('programs.index') }}"
-                    class="{{ request()->is('programs') || request()->is('programs/*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-people-group" style="color:#4caf50;"></i>
+            <li class="{{ request()->is('programs*') ? 'active' : '' }}">
+                <a href="{{ route('programs.index') }}" title="Program Bantuan"> <i class="fa fa-people-group"></i>
                     <span>Program Bantuan</span>
                 </a>
             </li>
 
-            <li>
-                <a href="{{ route('pendaftar.index') }}"
-                    class="{{ request()->is('pendaftar') || request()->is('pendaftar/*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-file-signature" style="color:#b3b5b7; font-size:24px;"></i>
+            <li class="{{ request()->is('pendaftar*') ? 'active' : '' }}">
+                <a href="{{ route('pendaftar.index') }}" title="Pendaftar Bantuan"> <i
+                        class="fa fa-file-signature"></i>
                     <span>Pendaftar Bantuan</span>
                 </a>
             </li>
 
-            <li>
-                <a href="{{ route('verifikasi.index') }}"
-                    class="{{ request()->is('verifikasi-lapangan') || request()->is('verifikasi-lapangan/*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-clipboard-check" style="color:#e7eff5; font-size:24px;"></i>
+            <li class="{{ request()->is('verifikasi*') ? 'active' : '' }}">
+                <a href="{{ route('verifikasi.index') }}" title="Verifikasi Lapangan"> <i
+                        class="fa fa-clipboard-check"></i>
                     <span>Verifikasi Lapangan</span>
                 </a>
             </li>
 
-            <li>
-                <a href="{{ route('penerima.index') }}"
-                    class="{{ request()->is('penerima') || request()->is('penerima/*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-people-carry-box" style="color:#30e3ce; font-size:24px;"></i>
+            <li class="{{ request()->is('penerima*') ? 'active' : '' }}">
+                <a href="{{ route('penerima.index') }}" title="Penerima Bantuan"> <i
+                        class="fa fa-people-carry-box"></i>
                     <span>Penerima Bantuan</span>
                 </a>
             </li>
 
-            <li>
-                <a href="{{ route('riwayat.index') }}"
-                    class="{{ request()->is('riwayat') || request()->is('riwayat/*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-clock-rotate-left" style="color:#e7eff5; font-size:24px;"></i>
+            <li class="{{ request()->is('riwayat*') ? 'active' : '' }}">
+                <a href="{{ route('riwayat.index') }}" title="Riwayat Penyaluran"> <i
+                        class="fa fa-clock-rotate-left"></i>
                     <span>Riwayat Penyaluran</span>
                 </a>
             </li>
 
-            {{-- Data User --}}
-            <li>
-                <a href="{{ route('users.index') }}"
-                    class="{{ request()->is('users') || request()->is('users/*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-user-circle" style="color:#2980b9; font-size:24px;"></i>
+            <li class="{{ request()->is('users*') ? 'active' : '' }}">
+                <a href="{{ route('users.index') }}" title="Data User"> <i class="fa fa-user-circle"></i>
                     <span>Data User</span>
                 </a>
             </li>
+
         </ul>
     </div>
 </nav>

@@ -93,16 +93,17 @@
                         <td>{{ $row->pekerjaan }}</td>
                         <td>{{ $row->telp }}</td>
                         <td>{{ $row->email }}</td>
-                        <td>
+                        <td style="display: flex; gap: 6px;">
                             <a href="{{ route('warga.edit', $row->warga_id) }}" class="btn btn-primary btn-sm">
-                                <i class="fa-solid fa-pen-to-square"></i> Edit
+                                <i class="fa-solid fa-pen-to-square"></i>
                             </a>
+
                             <form action="{{ route('warga.destroy', $row->warga_id) }}" method="POST"
                                 style="display:inline">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin hapus data ini?')">
-                                    <i class="fa-solid fa-trash-can"></i> Hapus
+                                    <i class="fa-solid fa-trash-can"></i>
                                 </button>
                             </form>
                         </td>

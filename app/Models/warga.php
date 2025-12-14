@@ -18,4 +18,5 @@ class Warga extends Model
         'telp',
         'email',
     ];
+    
 }

@@ -10,17 +10,11 @@ class RiwayatPenyaluran extends Model
     protected $primaryKey = 'penyaluran_id';
 
     protected $fillable = [
-        'program_id',
         'penerima_id',
         'tahap_ke',
         'tanggal',
         'nilai',
     ];
-
-    public function program()
-    {
-        return $this->belongsTo(Program::class, 'program_id');
-    }
 
     public function penerima()
     {

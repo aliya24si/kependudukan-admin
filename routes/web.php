@@ -5,7 +5,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\WargaController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PendaftarController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PenerimaBantuanController;
 use App\Http\Controllers\RiwayatPenyaluranController;
 use App\Http\Controllers\VerifikasiLapanganController;
@@ -18,7 +20,7 @@ Route::resource('login', LoginController::class)->only(['index', 'store']);
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // dashboard diarahkan ke view/admin/dashboard.blade.php
-Route::get('/dashboard', function () {return view('pages.dashboard');})
+Route::get('/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard')
     ->middleware('checkislogin');
 
@@ -54,3 +56,9 @@ Route::resource('riwayat', RiwayatPenyaluranController::class);
 Route::delete('riwayat/media/{media}', [RiwayatPenyaluranController::class, 'deleteMedia'])
     ->name('riwayat.media.delete');
 
+
+Route::get('/register', [RegisterController::class, 'show'])
+    ->name('register');
+
+Route::post('/register', [RegisterController::class, 'store'])
+    ->name('register.store');

@@ -14,6 +14,7 @@
         @csrf
         @method('PUT')
 
+        {{-- Nama Warga --}}
         <div class="mb-3">
             <label>Nama Warga</label>
             <select name="warga_id" class="form-control" required>
@@ -26,6 +27,7 @@
             </select>
         </div>
 
+        {{-- Program --}}
         <div class="mb-3">
             <label>Program Bantuan</label>
             <select name="program_id" class="form-control" required>
@@ -38,6 +40,7 @@
             </select>
         </div>
 
+        {{-- Status --}}
         <div class="mb-3">
             <label>Status</label>
             <select name="status" class="form-control">
@@ -47,9 +50,13 @@
             </select>
         </div>
 
+        {{-- Upload media tambahan --}}
         <div class="mb-3">
-            <label>Upload Berkas Baru (opsional)</label>
+            <label>Upload Berkas Tambahan (opsional, bisa banyak)</label>
             <input type="file" name="media[]" class="form-control" multiple>
+            @error('media.*')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
         </div>
 
         <hr>
@@ -61,11 +68,12 @@
                 <div class="col-md-3 mb-3">
                     <div class="border p-3 text-center rounded">
 
-                        {{-- Jika image, tampilkan --}}
+                        {{-- Tampilkan image jika gambar --}}
                         @if(Str::contains($m->file_type, 'image'))
                             <img src="{{ asset('storage/' . $m->file_path) }}"
                                  style="width:100%; height:140px; object-fit:cover;">
                         @else
+                            {{-- Ikon PDF --}}
                             <i class="fa-solid fa-file-pdf fa-3x text-danger"></i>
                         @endif
 

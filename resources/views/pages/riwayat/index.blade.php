@@ -9,13 +9,14 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    {{-- Filter --}}
+    {{-- FILTER --}}
     <form method="GET" class="card p-3 mb-3 shadow-sm">
         <div class="row g-2">
+
             <div class="col-md-4">
-                <label class="form-label">Filter Program</label>
-                <select class="form-select" name="program_id">
-                    <option value="">Semua Program</option>
+                <label class="form-label">Program Bantuan</label>
+                <select name="program_id" class="form-select">
+                    <option value="">-- Semua Program --</option>
                     @foreach ($program as $p)
                         <option value="{{ $p->program_id }}"
                             {{ request('program_id') == $p->program_id ? 'selected' : '' }}>
@@ -50,8 +51,8 @@
                 <thead class="table-primary">
                     <tr>
                         <th>#</th>
-                        <th>Program</th>
                         <th>Penerima</th>
+                        <th>Program</th>
                         <th>Tahap</th>
                         <th>Tanggal</th>
                         <th>Nilai</th>
@@ -61,11 +62,11 @@
                 </thead>
 
                 <tbody>
-                    @foreach ($riwayat as $r)
+                    @forelse ($riwayat as $r)
                         <tr>
                             <td>{{ $loop->iteration + ($riwayat->currentPage() - 1) * $riwayat->perPage() }}</td>
-                            <td>{{ $r->program->nama_program }}</td>
-                            <td>{{ $r->penerima->warga->nama_lengkap ?? '-' }}</td>
+                            <td>{{ $r->penerima->warga->nama ?? '-' }}</td>
+                            <td>{{ $r->penerima->program->nama_program ?? '-' }}</td>
                             <td>{{ $r->tahap_ke }}</td>
                             <td>{{ $r->tanggal }}</td>
                             <td>Rp {{ number_format($r->nilai, 0, ',', '.') }}</td>
@@ -74,12 +75,12 @@
                             <td>
                                 <a href="{{ route('riwayat.show', $r->penyaluran_id) }}"
                                    class="btn btn-info btn-sm mb-1">
-                                    <i class="fa fa-eye"></i> Detail
+                                    <i class="fa fa-eye"></i>
                                 </a>
 
                                 <a href="{{ route('riwayat.edit', $r->penyaluran_id) }}"
                                    class="btn btn-primary btn-sm mb-1">
-                                    <i class="fa fa-edit"></i> Edit
+                                    <i class="fa fa-edit"></i>
                                 </a>
 
                                 <form action="{{ route('riwayat.destroy', $r->penyaluran_id) }}"
@@ -88,12 +89,18 @@
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger btn-sm">
-                                        <i class="fa fa-trash"></i> Hapus
+                                        <i class="fa fa-trash"></i>
                                     </button>
                                 </form>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="8" class="text-center text-muted">
+                                Tidak ada data
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
 

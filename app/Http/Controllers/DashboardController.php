@@ -1,109 +1,68 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Pendaftar;
+use App\Models\PenerimaBantuan;
+use App\Models\Program;
 
 class DashboardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        return view('admin.dashboard');
-    }
+        // Statistik
+        $total_programs     = Program::count();
+        $total_anggaran     = Program::sum('anggaran');
+        $programs_tahun_ini = Program::whereYear('created_at', date('Y'))->count();
+        $total_penerima     = PenerimaBantuan::count();
 
-    public function about()
-    {
-        return view('admin.about');
-    }
+        // Tambahkan ini
+        $total_pendaftar = Pendaftar::count();
 
-    public function service()
-    {
-        return view('admin.service');
-    }
+        // Program terbaru (limit 5)
+        $recent_programs = Program::latest()->take(5)->get();
 
-    public function donation()
-    {
-        return view('admin.donation');
-    }
+        // Data pengembang
+        $pengembang = [
+            [
+                'nama'      => 'Aliya Safwa Shafira',
+                'nim'       => '2457301009',
+                'prodi'     => 'Sistem Informatika',
+                'lokasi'    => 'Pekanbaru, Indonesia', // Tambah ini
+                'foto'      => 'assets-admin/images/layout_img/aliya-safwa.JPG',
 
-    public function event()
-    {
-        return view('admin.event');
-    }
+                'linkedin'  => 'https://www.linkedin.com/in/aliya-safwa-733524360',
+                'github'    => 'https://github.com/aliya24si',
+                'instagram' => 'https://www.instagram.com/my.skylandd?igsh=NzVveXAzMDlxcnM5',
+                'youtube'   => 'https://youtube.com/@my.skylandd1651?si=apUOi2jMOONY8A4Y',
 
-    public function feature()
-    {
-        return view('admin.feature');
-    }
+                'wa'        => '+62 823-9190-6810',
+                'email'     => 'safwa24si@mahasiswa.pcr.ac.id',
+            ],
+            [
+                'nama'      => 'Muhammad Johan Ardiansyah Putra',
+                'nim'       => '2457301094',
+                'prodi'     => 'Sistem Informasi',
+                'lokasi'    => 'Pekanbaru, Indonesia', // Tambah ini
+                'foto'      => 'assets-admin/images/layout_img/johan.jpg',
 
-    public function team()
-    {
-        return view('admin.team');
-    }
+                'linkedin'  => 'https://linkedin.com/in/pengembang2',
+                'github'    => 'https://github.com/pengembang2',
+                'instagram' => 'https://www.instagram.com/johana.putra',
+                'youtube'   => 'https://youtube.com/@muhammadjohanarninasyahputra?si=xSkLbL9tn-wAg_Sk',
 
-    public function testimonial()
-    {
-        return view('admin.testimonial');
-    }
+                'wa'        => '+62 819-1898-0969',
+                'email'     => 'johan24si@mahasiswa.pcr.ac.id',
+            ],
+        ];
 
-    public function contact()
-    {
-        return view('admin.contact');
-    }
-
-    public function error()
-    {
-        return view('admin.404');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return view('pages.dashboard', compact(
+            'total_programs',
+            'total_anggaran',
+            'programs_tahun_ini',
+            'total_penerima',
+            'recent_programs',
+            'pengembang',
+            'total_pendaftar' // <---- WAJIB TAMBAH DI SINI
+        ));
     }
 }

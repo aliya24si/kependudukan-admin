@@ -78,7 +78,7 @@
 
         {{-- Upload more --}}
         <div class="mb-3">
-            <label class="form-label">Tambah Foto Verifikasi (boleh >1)</label>
+            <label class="form-label">Tambah Foto Verifikasi (boleh lebih dari 1)</label>
             <input type="file" name="media[]" class="form-control" accept="image/*" multiple>
             <small class="text-muted">Format: jpg, jpeg, png — Max 4MB per file</small>
             @error('media.*')<div class="text-danger small mt-1">{{ $message }}</div>@enderror

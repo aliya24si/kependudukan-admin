@@ -52,7 +52,7 @@ class PendaftarController extends Controller
             'program_id' => 'required',
             'status'     => 'required',
             'berkas'     => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:4096',
-            'media.*'    => 'nullable|file|mimes:jpg,jpeg,png|max:4096',
+            'media.*'    => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:4096',
         ]);
 
         // Simpan berkas utama
@@ -112,7 +112,7 @@ class PendaftarController extends Controller
             'program_id' => 'required',
             'status'     => 'required',
             'berkas'     => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:4096',
-            'media.*'    => 'nullable|file|mimes:jpg,jpeg,png|max:4096'
+            'media.*'    => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:4096'
         ]);
 
         $pendaftar = Pendaftar::findOrFail($id);

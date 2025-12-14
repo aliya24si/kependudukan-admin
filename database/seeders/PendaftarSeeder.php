@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Pendaftar;
 use App\Models\Program;
 use App\Models\Warga;
+use App\Models\VerifikasiLapangan;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 
@@ -14,7 +15,7 @@ class PendaftarSeeder extends Seeder
     {
         $faker = Faker::create('id_ID');
 
-        // 1. Daftar nama program (8 data)
+        // 1. Daftar nama program
         $programNames = [
             'Bantuan Langsung Tunai Desa',
             'Program Keluarga Harapan',
@@ -26,7 +27,7 @@ class PendaftarSeeder extends Seeder
             'Bantuan Bencana Alam',
         ];
 
-        // 2. Insert 8 program (bukan 100)
+        // 2. Insert 8 program
         $programs = [];
         foreach ($programNames as $index => $name) {
             $programs[] = Program::create([
@@ -34,12 +35,12 @@ class PendaftarSeeder extends Seeder
                 'nama_program' => $name,
                 'tahun'        => $faker->numberBetween(2020, 2025),
                 'deskripsi'    => $faker->sentence(),
-                'anggaran'     => $faker->numberBetween(1000000, 50000000),
+                'anggaran'     => $faker->numberBetween(1_000_000, 50_000_000),
                 'media'        => null,
             ]);
         }
 
-        // 3. Insert 100 Warga + Pendaftar
+        // 3. Insert 100 Warga + Pendaftar + Verifikasi
         for ($i = 1; $i <= 100; $i++) {
 
             $warga = Warga::create([
@@ -53,13 +54,27 @@ class PendaftarSeeder extends Seeder
                 'email'         => $faker->unique()->safeEmail(),
             ]);
 
-            // Pilih program secara acak dari 8 data yang sudah dibuat
             $randomProgram = $programs[array_rand($programs)];
 
-            Pendaftar::create([
+            $pendaftar = Pendaftar::create([
                 'warga_id'   => $warga->warga_id,
                 'program_id' => $randomProgram->program_id,
                 'status'     => $faker->randomElement(['pending', 'diterima', 'ditolak']),
+            ]);
+
+            // ✅ VERIFIKASI LAPANGAN
+            VerifikasiLapangan::create([
+                'pendaftar_id' => $pendaftar->pendaftar_id,
+                'petugas'      => $faker->name(),
+                'tanggal'      => $faker->dateTimeBetween('-1 month', 'now')->format('Y-m-d'),
+                'catatan'      => $faker->randomElement([
+                    'Data sesuai dengan kondisi lapangan',
+                    'Rumah layak dibantu',
+                    'Perlu verifikasi lanjutan',
+                    'Penghasilan rendah, direkomendasikan',
+                    'Tidak sesuai kriteria program',
+                ]),
+                'skor'         => $faker->numberBetween(10, 100),
             ]);
         }
     }

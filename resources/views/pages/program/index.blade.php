@@ -70,12 +70,12 @@
                         <td>
                             <!-- Detail -->
                             <a href="{{ route('programs.show', $program->program_id) }}" class="btn btn-info btn-sm">
-                                <i class="fa-solid fa-circle-info"></i> Detail
+                                <i class="fa-solid fa-circle-info"></i>
                             </a>
 
                             <!-- Edit -->
                             <a href="{{ route('programs.edit', $program->program_id) }}" class="btn btn-primary btn-sm">
-                                <i class="fa-solid fa-pen-to-square"></i> Edit
+                                <i class="fa-solid fa-pen-to-square"></i>
                             </a>
 
                             <!-- Delete -->
@@ -84,7 +84,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin hapus program ini?')">
-                                    <i class="fa-solid fa-trash-can"></i> Hapus
+                                    <i class="fa-solid fa-trash-can"></i> 
                                 </button>
                             </form>
                         </td>

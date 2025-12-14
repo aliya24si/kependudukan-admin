@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\RiwayatPenyaluran;
-use App\Models\Program;
 use App\Models\PenerimaBantuan;
+use App\Models\Program;
 use App\Models\Media;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -13,13 +13,20 @@ class RiwayatPenyaluranController extends Controller
 {
     public function index(Request $request)
     {
-        $query = RiwayatPenyaluran::with(['program', 'penerima', 'media']);
+        $query = RiwayatPenyaluran::with([
+            'penerima.warga',
+            'penerima.program',
+            'media'
+        ]);
 
+        // 🔍 FILTER PROGRAM
         if ($request->program_id) {
-            $query->where('program_id', $request->program_id);
+            $query->whereHas('penerima', function ($q) use ($request) {
+                $q->where('program_id', $request->program_id);
+            });
         }
 
-        $riwayat = $query->paginate(10);
+        $riwayat = $query->paginate(10)->withQueryString();
         $program = Program::orderBy('nama_program')->get();
 
         return view('pages.riwayat.index', compact('riwayat', 'program'));
@@ -27,16 +34,13 @@ class RiwayatPenyaluranController extends Controller
 
     public function create()
     {
-        $program = Program::all();
-        $penerima = PenerimaBantuan::with('warga')->get();
-
-        return view('pages.riwayat.create', compact('program', 'penerima'));
+        $penerima = PenerimaBantuan::with(['warga', 'program'])->get();
+        return view('pages.riwayat.create', compact('penerima'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'program_id'  => 'required',
             'penerima_id' => 'required',
             'tahap_ke'    => 'required|integer|min:1',
             'tanggal'     => 'required|date',
@@ -45,7 +49,7 @@ class RiwayatPenyaluranController extends Controller
         ]);
 
         $riwayat = RiwayatPenyaluran::create($request->only([
-            'program_id', 'penerima_id', 'tahap_ke', 'tanggal', 'nilai'
+            'penerima_id', 'tahap_ke', 'tanggal', 'nilai'
         ]));
 
         if ($request->hasFile('media')) {
@@ -68,24 +72,23 @@ class RiwayatPenyaluranController extends Controller
 
     public function show($id)
     {
-        $riwayat = RiwayatPenyaluran::with(['program', 'penerima', 'media'])->findOrFail($id);
+        $riwayat = RiwayatPenyaluran::with(['penerima.warga', 'penerima.program', 'media'])
+            ->findOrFail($id);
 
         return view('pages.riwayat.show', compact('riwayat'));
     }
 
     public function edit($id)
     {
-        $riwayat = RiwayatPenyaluran::with('media')->findOrFail($id);
-        $program = Program::all();
-        $penerima = PenerimaBantuan::with('warga')->get();
+        $riwayat  = RiwayatPenyaluran::with('media')->findOrFail($id);
+        $penerima = PenerimaBantuan::with(['warga', 'program'])->get();
 
-        return view('pages.riwayat.edit', compact('riwayat', 'program', 'penerima'));
+        return view('pages.riwayat.edit', compact('riwayat', 'penerima'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'program_id'  => 'required',
             'penerima_id' => 'required',
             'tahap_ke'    => 'required|integer|min:1',
             'tanggal'     => 'required|date',
@@ -96,7 +99,7 @@ class RiwayatPenyaluranController extends Controller
         $riwayat = RiwayatPenyaluran::findOrFail($id);
 
         $riwayat->update($request->only([
-            'program_id', 'penerima_id', 'tahap_ke', 'tanggal', 'nilai'
+            'penerima_id', 'tahap_ke', 'tanggal', 'nilai'
         ]));
 
         if ($request->hasFile('media')) {
