@@ -5,10 +5,14 @@
 
                 @php
                     $user = Auth::user();
-                    $photo =
-                        $user && $user->profile_picture
-                            ? asset('storage/' . $user->profile_picture)
-                            : asset('assets-admin/images/layout_img/placeholder.jpeg');
+
+                    if ($user && $user->profile_picture) {
+                        $photo = str_starts_with($user->profile_picture, 'assets-')
+                            ? asset($user->profile_picture)
+                            : asset('storage/' . $user->profile_picture);
+                    } else {
+                        $photo = asset('assets-admin/images/layout_img/placeholder.jpeg');
+                    }
                 @endphp
 
                 <div class="user_img">

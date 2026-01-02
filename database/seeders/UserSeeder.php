@@ -13,10 +13,11 @@ class UserSeeder extends Seeder
     {
         // --- 1. USER ADMIN ---
         User::create([
-            'name'     => 'Admin',
-            'email'    => 'Admin@gmail.com',
-            'password' => Hash::make('Admin@gmail.com'),
+            'name'     => 'Aliya',
+            'email'    => 'Aliya@gmail.com',
+            'password' => Hash::make('aliyapcr'),
             'role'     => 'admin', // menambahkan role admin
+            'profile_picture'  => 'assets-admin/images/layout_img/aliya-safwa-min.jpg',
         ]);
 
         // --- 2. FAKER INDONESIA ---

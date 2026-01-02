@@ -68,12 +68,18 @@
                 <div class="col-md-3 mb-3">
                     <div class="border p-3 text-center rounded">
 
-                        {{-- Tampilkan image jika gambar --}}
                         @if(Str::contains($m->file_type, 'image'))
-                            <img src="{{ asset('storage/' . $m->file_path) }}"
+
+                            @php
+                                $src = Str::startsWith($m->file_path, 'dummy/')
+                                    ? asset($m->file_path)
+                                    : asset('storage/' . $m->file_path);
+                            @endphp
+
+                            <img src="{{ $src }}"
                                  style="width:100%; height:140px; object-fit:cover;">
+
                         @else
-                            {{-- Ikon PDF --}}
                             <i class="fa-solid fa-file-pdf fa-3x text-danger"></i>
                         @endif
 

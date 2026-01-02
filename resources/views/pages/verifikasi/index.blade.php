@@ -69,7 +69,7 @@
 
                     <td>{{ \Carbon\Carbon::parse($ver->tanggal)->format('d M Y') }}</td>
 
-                    <td>{{ $ver->skor ?? '-' }}</td>
+                    <td>{{ $ver->skor ?? '-' }} %</td>
 
                     <td>
                         <a href="{{ route('verifikasi.show', $ver->verifikasi_id) }}"
@@ -88,7 +88,7 @@
                             @csrf
                             @method('DELETE')
                             <button class="btn btn-danger btn-sm">
-                                <i class="fa fa-trash"></i> 
+                                <i class="fa fa-trash"></i>
                             </button>
                         </form>
                     </td>

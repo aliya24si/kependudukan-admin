@@ -18,12 +18,10 @@
                     <th width="200">Nama Warga</th>
                     <td>{{ $pendaftar->warga->nama }}</td>
                 </tr>
-
                 <tr>
                     <th>Program Bantuan</th>
                     <td>{{ $pendaftar->program->nama_program }}</td>
                 </tr>
-
                 <tr>
                     <th>Status</th>
                     <td>
@@ -31,7 +29,7 @@
                             <span class="badge" style="background-color:#f1e024;">Pending</span>
                         @elseif ($pendaftar->status == 'diterima')
                             <span class="badge" style="background-color:#61db7e;">Diterima</span>
-                        @elseif ($pendaftar->status == 'ditolak')
+                        @else
                             <span class="badge" style="background-color:#f25d6c;">Ditolak</span>
                         @endif
                     </td>
@@ -48,8 +46,16 @@
                         <div class="p-3 border rounded text-center">
 
                             @if(Str::contains($m->file_type, 'image'))
-                                <img src="{{ asset('storage/' . $m->file_path) }}"
+
+                                @php
+                                    $src = Str::startsWith($m->file_path, 'dummy/')
+                                        ? asset($m->file_path)
+                                        : asset('storage/' . $m->file_path);
+                                @endphp
+
+                                <img src="{{ $src }}"
                                      style="width:100%; height:150px; object-fit:cover;">
+
                             @else
                                 <i class="fa-solid fa-file-pdf fa-3x text-danger"></i>
                             @endif

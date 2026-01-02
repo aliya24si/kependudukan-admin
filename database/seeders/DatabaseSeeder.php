@@ -17,13 +17,13 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->create([
             'name'     => 'admin',
-            'email'    => 'aliya@gmail.com',
-            'password' => Hash::make('aliyapcr'),
+            'email'    => 'Admin@gmail.com',
+            'password' => Hash::make('Admin@gmail.com'),
             'role'     => 'admin',
         ]);
 
         $this->call([
-            // UserSeeder::class,
+            ProgramSeeder::class,
             PendaftarSeeder::class,
             PenyaluranSeeder::class,
             UserSeeder::class,

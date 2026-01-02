@@ -28,7 +28,7 @@ class DashboardController extends Controller
                 'nim'       => '2457301009',
                 'prodi'     => 'Sistem Informatika',
                 'lokasi'    => 'Pekanbaru, Indonesia', // Tambah ini
-                'foto'      => 'assets-admin/images/layout_img/aliya-safwa-min.JPG',
+                'foto'      => 'assets-admin/images/layout_img/aliya-safwa-min.jpg',
 
                 'linkedin'  => 'https://www.linkedin.com/in/aliya-safwa-733524360',
                 'github'    => 'https://github.com/aliya24si',
