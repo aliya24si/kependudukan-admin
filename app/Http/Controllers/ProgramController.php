@@ -174,7 +174,7 @@ class ProgramController extends Controller
     public function deleteMedia(Media $media)
     {
         // hapus file fisik jika ada
-        if ($media->file_path) {
+        if (! str_starts_with($media->file_path, 'dummy/')) {
             Storage::disk('public')->delete($media->file_path);
         }
 

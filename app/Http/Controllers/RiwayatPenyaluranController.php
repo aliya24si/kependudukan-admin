@@ -1,11 +1,10 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use App\Models\RiwayatPenyaluran;
+use App\Models\Media;
 use App\Models\PenerimaBantuan;
 use App\Models\Program;
-use App\Models\Media;
+use App\Models\RiwayatPenyaluran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -16,7 +15,7 @@ class RiwayatPenyaluranController extends Controller
         $query = RiwayatPenyaluran::with([
             'penerima.warga',
             'penerima.program',
-            'media'
+            'media',
         ]);
 
         // 🔍 FILTER PROGRAM
@@ -49,7 +48,7 @@ class RiwayatPenyaluranController extends Controller
         ]);
 
         $riwayat = RiwayatPenyaluran::create($request->only([
-            'penerima_id', 'tahap_ke', 'tanggal', 'nilai'
+            'penerima_id', 'tahap_ke', 'tanggal', 'nilai',
         ]));
 
         if ($request->hasFile('media')) {
@@ -99,7 +98,7 @@ class RiwayatPenyaluranController extends Controller
         $riwayat = RiwayatPenyaluran::findOrFail($id);
 
         $riwayat->update($request->only([
-            'penerima_id', 'tahap_ke', 'tanggal', 'nilai'
+            'penerima_id', 'tahap_ke', 'tanggal', 'nilai',
         ]));
 
         if ($request->hasFile('media')) {
@@ -116,7 +115,6 @@ class RiwayatPenyaluranController extends Controller
                 ]);
             }
         }
-
         return redirect()->route('riwayat.index')->with('success', 'Riwayat berhasil diupdate.');
     }
 
@@ -136,9 +134,13 @@ class RiwayatPenyaluranController extends Controller
 
     public function deleteMedia(Media $media)
     {
-        Storage::disk('public')->delete($media->file_path);
+        if (! str_starts_with($media->file_path, 'dummy/')) {
+            Storage::disk('public')->delete($media->file_path);
+        }
+
         $media->delete();
 
         return back()->with('success', 'Media berhasil dihapus');
     }
+
 }

@@ -15,32 +15,56 @@ class PendaftarSeeder extends Seeder
     {
         $faker = Faker::create('id_ID');
 
-        // 1. Daftar nama program
-        $programNames = [
-            'Bantuan Langsung Tunai Desa',
-            'Program Keluarga Harapan',
-            'Bantuan Pangan Non Tunai',
-            'Bantuan Modal UMKM',
-            'Beasiswa Pendidikan Warga Tidak Mampu',
-            'Bantuan Untuk Orang Kurang Mampu',
-            'Bantuan Panti Asuhan',
-            'Bantuan Bencana Alam',
+        // 🔥 Mapping nama program → gambar
+        $programsData = [
+            [
+                'nama'  => 'Bantuan Langsung Tunai Desa',
+                'image' => 'dummy/program/bantuan-langsung-tunai-desa.jpeg',
+            ],
+            [
+                'nama'  => 'Program Keluarga Harapan',
+                'image' => 'dummy/program/program-keluarga-harapan.jpeg',
+            ],
+            [
+                'nama'  => 'Bantuan Pangan Non Tunai',
+                'image' => 'dummy/program/bantuan-pangan-non-tunai.jpeg',
+            ],
+            [
+                'nama'  => 'Bantuan Modal UMKM',
+                'image' => 'dummy/program/bantuan-modal-umkm.jpeg',
+            ],
+            [
+                'nama'  => 'Beasiswa Pendidikan Warga Tidak Mampu',
+                'image' => 'dummy/program/Beasiswa-Pendidikan-Warga-Tidak-Mampu.jpeg',
+            ],
+            [
+                'nama'  => 'Bantuan Untuk Orang Kurang Mampu',
+                'image' => 'dummy/program/bantuan-untuk-orang-kurang-mampu.jpeg',
+            ],
+            [
+                'nama'  => 'Bantuan Panti Asuhan',
+                'image' => 'dummy/program/bantuan-panti-asuhan.jpeg',
+            ],
+            [
+                'nama'  => 'Bantuan Bencana Alam',
+                'image' => 'dummy/program/bantuan-bencana-alam.jpeg',
+            ],
         ];
 
-        // 2. Insert 8 program
+        // ✅ Insert program + gambar
         $programs = [];
-        foreach ($programNames as $index => $name) {
+        foreach ($programsData as $index => $p) {
             $programs[] = Program::create([
                 'kode'         => 'PB' . str_pad($index + 1, 3, '0', STR_PAD_LEFT),
-                'nama_program' => $name,
+                'nama_program' => $p['nama'],
                 'tahun'        => $faker->numberBetween(2020, 2025),
                 'deskripsi'    => $faker->sentence(),
                 'anggaran'     => $faker->numberBetween(1_000_000, 50_000_000),
-                'media'        => null,
+                'media'        => $p['image'], // 🔥 PATH GAMBAR
             ]);
         }
 
-        // 3. Insert 100 Warga + Pendaftar + Verifikasi
+        // ✅ 100 Warga + Pendaftar + Verifikasi
         for ($i = 1; $i <= 100; $i++) {
 
             $warga = Warga::create([
@@ -62,7 +86,6 @@ class PendaftarSeeder extends Seeder
                 'status'     => $faker->randomElement(['pending', 'diterima', 'ditolak']),
             ]);
 
-            // ✅ VERIFIKASI LAPANGAN
             VerifikasiLapangan::create([
                 'pendaftar_id' => $pendaftar->pendaftar_id,
                 'petugas'      => $faker->name(),

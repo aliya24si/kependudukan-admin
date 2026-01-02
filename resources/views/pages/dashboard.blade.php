@@ -85,8 +85,9 @@
                                 <div style="padding: 30px;">
                                     <div
                                         style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 15px; padding: 30px; border: 1px solid rgba(255,255,255,0.2);">
-                                        <div style="font-size: 4rem; color: white; margin-bottom: 15px;">
-                                            <i class="fa fa-hands-helping"></i>
+                                        <div style="margin-bottom: 15px; display: flex; justify-content: center;">
+                                            <img src="/assets-admin/images/logo/logo-bina-desa-kecil.png" alt="Logo Bina Desa"
+                                                style="height: 6rem; width: auto;">
                                         </div>
                                         <h4 style="color: white; margin: 0; font-weight: bold;">Sistem Bantuan Sosial</h4>
                                         <small style="color: rgba(255,255,255,0.9);">Terintegrasi & Terpercaya</small>
