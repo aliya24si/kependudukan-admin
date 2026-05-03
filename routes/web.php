@@ -16,6 +16,12 @@ Route::get('/', function () {
     return redirect('login');
 });
 
+Route::get('/register', [RegisterController::class, 'show'])
+        ->name('register');
+
+    Route::post('/register', [RegisterController::class, 'store'])
+        ->name('register.store');
+        
 Route::resource('login', LoginController::class)->only(['index', 'store']);
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
@@ -50,15 +56,9 @@ Route::middleware(['checkislogin'])->group(function () {
     Route::delete('riwayat/media/{media}', [RiwayatPenyaluranController::class, 'deleteMedia'])
         ->name('riwayat.media.delete');
 
-    Route::get('/register', [RegisterController::class, 'show'])
-        ->name('register');
-
-    Route::post('/register', [RegisterController::class, 'store'])
-        ->name('register.store');
-
     Route::group(['middleware' => ['checkrole:admin']], function () {
         Route::resource('users', UserController::class);
         /** List Route Lainnya */
     });
-    
+
 });
